@@ -7,18 +7,74 @@ body {
   height: 100vh;
 }
 
+/*MENU*/
+#menu{
+  float: left;
+  width: 90%;
+  background:#000000b5;
+  color: #fff;
+  border-radius: 50px;
+  margin-top: 1%;
+  margin-left: 1%;
+  padding: 20px;
+  overflow: hidden;
+}
+
+#menu ul{
+  list-style: none;
+}
+
+#menu ul li{
+  float: right;
+  text-transform: uppercase;
+  text-decoration: none;
+  margin-top: 1%;
+  margin-left: 1%;
+  line-height: 20px;
+  border-right: 1px solid white;
+}
+
+#menu ul li a{
+  display: block;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 15px;
+  color: white;
+}
+
 .info-head {
   width: auto;
   height: auto;
   background: #0000006e;
   color: #fff;
-
 }
-
 .info-head h1 {
   margin: 0;
   padding: 0 0 20px;
   text-align: left;
+}
+.principal {
+  float: left;
+  width: 90%;
+  min-height: auto;
+  background:#000000b5;
+  color: #fff;
+  border-radius: 50px;
+  margin-top: 1%;
+  margin-left: 1%;
+  padding: 20px;
+  overflow: hidden;
+  
+}
+.principal h1 {
+  color:#6adaff;
+}
+.principal a {
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: 12px;
+  line-height: 20px;
+  color: greenyellow;
 }
 .formulario {
   width: 320px;
@@ -29,11 +85,10 @@ body {
   top: 50%;
   left: 50%;
   position: absolute;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -35%);
   box-sizing: border-box;
   padding: 30px 30px;
 }
-
 
 .formulario h1 {
   margin: 0;
@@ -88,7 +143,7 @@ body {
 
 .formulario input[type="submit"]:hover {
   cursor: pointer;
-  background: #ffc107;
+  background: #ffc107b5;
   color: #000;
 }
 
