@@ -6,7 +6,17 @@ body {
   font-family: sans-serif;
   height: 100vh;
 }
-
+.info-cabeza {
+  width: auto;
+  height: auto;
+  background: #0000006e;
+  color: #fff;
+}
+.info-cabeza h1 {
+  margin: 0;
+  padding: 0 0 20px;
+  text-align: left;
+}
 /*MENU*/
 #menu{
   float: left;
@@ -42,17 +52,7 @@ body {
   color: white;
 }
 
-.info-head {
-  width: auto;
-  height: auto;
-  background: #0000006e;
-  color: #fff;
-}
-.info-head h1 {
-  margin: 0;
-  padding: 0 0 20px;
-  text-align: left;
-}
+
 .principal {
   float: left;
   width: 90%;
@@ -156,15 +156,4 @@ body {
 
 .formulario a:hover {
   color: #fff;
-}
-
-#pie{
-  width: auto;
-  height: auto;
-  background: #0000006e;
-  color: #fff;
-  text-align: center;
-  font-size: 18px;
-  position: top;
-
 }

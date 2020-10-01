@@ -8,7 +8,7 @@
 </head>
 <body>
   <?php require_once 'includes/conexion.php'; ?>
-  <div class="info-head">
+  <div class="info-cabeza">
     <h1>Informacion del Sistema</h1>
     <table border="0">
       <tr>
