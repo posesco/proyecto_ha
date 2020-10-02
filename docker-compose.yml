@@ -14,7 +14,7 @@ services:
     restart: unless-stopped
     networks: 
       - net
-  # Contenedor Base de Datos
+  # Contenedor Base de Datos SQL
   db:
     container_name: BASE_DATOS
     image: mariadb:latest
@@ -24,6 +24,19 @@ services:
     volumes: 
         - ./server/mariadb/db:/var/lib/mysql 
     env_file: ./server/.env
+    restart: unless-stopped
+    networks: 
+        - net
+  # Contenedor Base de Datos REDIS    
+  redis:
+    container_name: CACHE_REDIS
+    image: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis:/data
+    command: redis-server --appendonly yes
     restart: unless-stopped
     networks: 
         - net 
@@ -65,10 +78,12 @@ services:
       context: ./server/storage
     hostname: sftp.local
     ports: 
-      - 22:22
+      - "2222:22"
     volumes:
-      - ./server/storage:/home/almacen
-    networks:
-      - net
+      - ./server/storage/shared:/home/foo/upload
+    command: posesco:Y%ADL4*h!MWhsjS:1001
+    restart: unless-stopped
+    networks: 
+        - net 
 networks:
   net:
