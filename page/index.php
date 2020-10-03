@@ -8,7 +8,10 @@
 </head>
 
 <body>
-    <?php require_once 'includes/mysql.php'; ?>
+    <?php 
+    require_once 'includes/mysql.php';
+    require_once 'includes/redis.php';
+     ?>
     <div class="info-cabeza">
         <h1>Informacion del Sistema</h1>
         <table border="0">
@@ -16,32 +19,34 @@
                 <td>
                     <?php
                     // Variables de servidor
-                    echo 'Ip del Servidor: ' . $_SERVER['SERVER_ADDR'];
+                    echo '<strong>Ip del Servidor: </strong>' . $_SERVER['SERVER_ADDR'].':'.$_SERVER['SERVER_PORT'];
                     echo '<br>';
-                    echo 'Puerto del Servidor: ' . $_SERVER['SERVER_PORT'];
+                    echo '<strong>Ip del Cliente: </strong>' .$_SERVER['REMOTE_ADDR'].':'.$_SERVER['REMOTE_PORT'];
                     echo '<br>';
-                    echo "Información de conexion DB: " . mysqli_get_host_info($db);
+                    echo '<strong>Información del Host Base de Datos: </strong>' . mysqli_get_host_info($db);
                     echo '<br>';
-                    echo "Version DB SQL: " . mysqli_get_server_info($db);
+                    echo '<strong>Version DB SQL: </strong>' . mysqli_get_server_info($db);
                     ?>
                 </td>
                 <td>
                     <?php
                     // Variables de servidor
-                    echo 'Almacenamiento SFTP: XXXXXX ';
+                    
+                    echo '<strong>Version Server Redis: </strong>'.$v_redis ["redis_version"];
                     echo '<br>';
-                    echo 'Conexion Redis: XXXXXX';
+                    echo '<strong>Version Cliente PhpRedis: </strong>'.phpversion('redis');
                     echo '<br>';
-                    echo 'Otro dato: XXXXXX';
+                    echo '<strong>Servidor SFTP: </strong>';
                     echo '<br>';
-                    echo 'Otro mas: XXXXXX';
+                    echo '<strong>Almacen de archivos: </strong>';
                     ?>
                 </td>
             </tr>
         </table>
 
     </div>
-    <!-- FIN DE BARRA HORIZONTAL -->
+    <?php if(isset($_SESSION)): ?>
+    <!-- INICIO DE BARRA HORIZONTAL -->
     <nav id="menu">
         <ul>
             <li>
@@ -82,20 +87,9 @@
         </article>
     </div>
     <!-- FIN DE CUERPO -->
-    <!-- INICIO FORMULARIO LOGIN -->
-    <div class="formulario">
-        <h1>Inicio de Sesion</h1>
-        <form action="../controllers/login.php" method="POST">
-            <label for="user">Usuario</label>
-            <input type="text" name="user" placeholder="pepito_perez">
-            <label for="password">Contraseña</label>
-            <input type="password" name="password" placeholder="*********">
-            <input type="submit" value="Iniciar Session">
-            <a href="registro.php">Crear cuenta </a>
-        </form>
-    </div>
-    <!-- FIN FORMULARIO LOGIN -->
+    <?php endif; ?>
 
+    <?php if(isset($_GET['registro'])): ?> 
     <!-- INICIO FORMULARIO DE REGISTRO -->
     <div class="formulario">
         <h1>Formulario de Registro</h1>
@@ -107,10 +101,25 @@
             <label for="password">Contraseña</label>
             <input type="password" name="password" placeholder="*********">
             <input type="submit" value="Registrar">
-            <a href="login.php">Ir a Inicio de Sesion</a>
+            <a href="index.php">Iniciar Sesion</a>
         </form>
     </div>
     <!-- FIN FORMULARIO DE REGISTRO -->
+    <?php elseif(isset($_GET)): ?>
+            <!-- INICIO FORMULARIO LOGIN -->
+    <div class="formulario">
+        <h1>Inicio de Sesion</h1>
+        <form action="../controllers/login.php" method="POST">
+            <label for="user">Usuario</label>
+            <input type="text" name="user" placeholder="pepito_perez">
+            <label for="password">Contraseña</label>
+            <input type="password" name="password" placeholder="*********">
+            <input type="submit" value="Iniciar Session">
+            <a href="index.php?registro">Crear cuenta </a>
+        </form>
+    </div>
+    <!-- FIN FORMULARIO LOGIN -->
+    <?php endif; ?>
 </body>
 
 </html>
