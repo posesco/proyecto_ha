@@ -2,7 +2,7 @@
     <!-- INICIO FORMULARIO DE REGISTRO -->
     <div class="formulario">
         <h1>Formulario de Registro</h1>
-        <form action="../controllers/registro.php" method="POST">
+        <form action="registro.php" method="POST">
             <label for="user">Usuario</label>
             <input type="text" name="user" placeholder="pepito_perez">
             <label for="email">Correo</label>
@@ -18,7 +18,7 @@
     <!-- INICIO FORMULARIO LOGIN -->
     <div class="formulario">
         <h1>Inicio de Sesion</h1>
-        <form action="../controllers/login.php" method="POST">
+        <form action="inicio.php" method="POST">
             <label for="user">Usuario</label>
             <input type="text" name="user" placeholder="pepito_perez">
             <label for="password">Contraseña</label>
