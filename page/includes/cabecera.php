@@ -1,9 +1,11 @@
 <?php
 require_once 'includes/mysql.php';
 require_once 'includes/redis.php';
+require_once 'includes/mongo.php';
 ?>
 <div class="info-cabeza">
     <h1>Informacion del Sistema</h1>
+    <?php echo 'Hola: '.$_SERVER['REQUEST_URI'];?>
     <table border="0">
         <tr>
             <td>
@@ -18,6 +20,7 @@ require_once 'includes/redis.php';
                 echo '<strong>Version DB SQL: </strong>' . mysqli_get_server_info($db);
                 ?>
             </td>
+            <td></td>
             <td>
                 <?php
                 echo '<strong>Version Server Redis: </strong>' . $v_redis["redis_version"];
@@ -27,6 +30,18 @@ require_once 'includes/redis.php';
                 echo '<strong>Servidor SFTP: </strong>';
                 echo '<br>';
                 echo '<strong>Almacen de archivos: </strong>';
+                ?>
+            </td>
+            <td></td>
+            <td>
+                <?php
+                echo '<strong>Version Server Mongo: </strong>' . $v_redis["redis_version"];
+                echo '<br>';
+                echo '<strong>Version Cliente Mongo: </strong>' . phpversion('redis');
+                echo '<br>';
+                echo '<strong>Estado Redis: </strong>';
+                echo '<br>';
+                echo '<strong>Estado Mongo: </strong>';
                 ?>
             </td>
         </tr>

@@ -1,4 +1,4 @@
-<?php if (isset($_SESSION)) : ?>
+<?php if (isset($_GET['cuerpo'])) : ?>
     <!-- INICIO DE BARRA HORIZONTAL -->
     <nav id="menu">
         <ul>
