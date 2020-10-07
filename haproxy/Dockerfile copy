@@ -1,0 +1,10 @@
+FROM debian:latest
+RUN apt-get update && \
+    apt-get install --no-install-recommends --no-install-suggests -y haproxy rsyslog keepalived
+# Esto busca y comenta la linea module(load="imklog")
+RUN sed -i 's/^\(module.*imklog.*\)/# \1/g' /etc/rsyslog.conf
+COPY ./conf /etc/haproxy
+COPY ./keepalived /etc/keepalived
+COPY ./ssl /etc/ssl
+EXPOSE 80 443 8090 
+CMD ["/bin/bash"]

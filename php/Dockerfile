@@ -18,5 +18,4 @@ RUN curl -L -o redis.tar.gz https://github.com/phpredis/phpredis/archive/5.3.1.t
        && mv phpredis-5.3.1 /usr/src/php/ext/redis \
        && docker-php-ext-install redis \
        && docker-php-ext-enable redis
- 
-COPY ./key/ /root/.ssh/
+EXPOSE 9000
