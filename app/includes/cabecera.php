@@ -5,7 +5,7 @@ require_once 'includes/mongo.php';
 ?>
 <div class="info-cabeza">
     <h1>Informacion del Sistema</h1>
-    <?php echo 'Hola: '.$_SERVER['REQUEST_URI'];?>
+    <?php var_dump($_GET);?>
     <table border="0">
         <tr>
             <td>

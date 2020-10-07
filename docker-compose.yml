@@ -96,28 +96,6 @@ services:
     networks:
       infra_lab:
         ipv4_address: 192.168.20.8
-  # haproxy2: 
-  #   container_name: BALANCEADOR_2
-  #   hostname: haproxy.local
-  #   build: 
-  #     context: ./haproxy
-  #   privileged: true
-  #   sysctls:
-  #     - net.ipv4.ip_nonlocal_bind=1
-  #   command: keepalived --dump-conf --log-console --log-detail --log-facility 7 --vrrp -f /etc/keepalived/keepalived-backup.conf
-  #   ports:
-  #     - 29080:8080
-  #     - 29443:8443
-  #     - 29090:8090
-  #   depends_on: 
-  #     - nginx1
-  #     - nginx2
-  #     - nginx3
-    # restart: unless-stopped
-    # networks:
-    #   infra_lab:
-    #     ipv4_address: 192.168.20.8
-
   # Contenedores Server Web
   nginx1: 
     container_name: NGINX_1
@@ -164,37 +142,23 @@ services:
       infra_lab:
         ipv4_address: 192.168.20.11
 
-
-  # # Servidor SFTP
-  # archivos: 
-  #   container_name: SERVER_SFTP
-  #   build:
-  #     context: ./storage
-  #   hostname: sftp.local
-  #   # ports: 
-  #   #   - "2222:22"
-  #   volumes:
-  #     - ./storage/shared:/home/foo/upload
-  #   command: posesco:Y%ADL4*h!MWhsjS:1001
-  #   restart: unless-stopped
-  #   networks: 
-  #       - infra_lab
   # # Gestor visual de Base de Datos SOLO POR EL CURSO
-  # phpmyadmin:
-  #   container_name: GESTOR_BASE_DATOS
-  #   image: phpmyadmin/phpmyadmin:latest
-  #   hostname: phpmyadmin.local
-  #   ports:
-  #     - 7070:80
-  #   depends_on: 
-  #     - db
-  #   volumes: 
-  #       - ./php/phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
-  #       - ./php/phpmyadmin/sessions/:/sessions/
-  #   env_file: ./.env
-  #   restart: unless-stopped
-  #   networks: 
-  #       - infra_lab 
+  phpmyadmin:
+    container_name: GESTOR_BASE_DATOS
+    image: phpmyadmin/phpmyadmin:latest
+    hostname: phpmyadmin.local
+    ports:
+      - 8080:80
+    depends_on: 
+      - db
+    volumes: 
+        - ./php/phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
+        - ./php/phpmyadmin/sessions/:/sessions/
+    env_file: ./.env
+    restart: unless-stopped
+    networks:
+      infra_lab:
+        ipv4_address: 192.168.20.50
 networks:
   infra_lab:
     driver: bridge

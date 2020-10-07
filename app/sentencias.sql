@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS entradas (
 # Insercion de Datos
 
 INSERT INTO usuarios (usuario, email, pass)
-  VALUES ('admin', 'admin@admin.com', 'admin');
+  VALUES ('admin', 'admin@admin.com', '$2y$04$mGlJQ5opPa.hZ/.LKPZCP.7/Y8P/gEUSFPwrWm/P6105D7cg.coM.');
 
 INSERT INTO entradas(usuario_id, titulo, descripcion, imagen)
   VALUES (1,'1er Post','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vulputate, dolor sed vehicula bibendum, mauris ligula rutrum mi, eu','https://wiedii.co/img/verticalwiedii.svg');

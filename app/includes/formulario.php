@@ -2,6 +2,15 @@
     <!-- INICIO FORMULARIO DE REGISTRO -->
     <div class="formulario">
         <h1>Formulario de Registro</h1>
+        <?php if (isset($_SESSION['completado'])) : ?>
+            <div class='alerta-exito'>
+                <?php echo $_SESSION['completado'] ?>
+            </div>
+        <?php elseif (isset($_SESSION['errores']['general'])) : ?>
+            <div class='alerta-fallo'>
+                <?php echo $_SESSION['errores']['general'] ?>
+            </div>
+        <?php endif; ?>
         <form action="registro.php" method="POST">
             <label for="user">Usuario</label>
             <input type="text" name="user">
@@ -14,7 +23,7 @@
         </form>
     </div>
     <!-- FIN FORMULARIO DE REGISTRO -->
-<?php elseif (isset($_GET)) : ?>
+<?php elseif (!isset($_SESSION)) : ?>
     <!-- INICIO FORMULARIO LOGIN -->
     <div class="formulario">
         <h1>Inicio de Sesion</h1>

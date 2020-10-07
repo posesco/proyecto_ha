@@ -52,6 +52,13 @@ body {
   color: white;
 }
 
+.alerta-fallo{
+  background: red;
+}
+
+.alerta-exito{
+  background: green;
+}
 
 .principal {
   float: left;
