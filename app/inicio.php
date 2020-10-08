@@ -13,11 +13,8 @@ if (isset($_POST)) {
         $usuario = mysqli_fetch_assoc($login);
         // Comparacion de password
         $verify = password_verify($password, $usuario['pass']);
-        var_dump($verify);
-        die();
         if ($verify){
             // Usa una sesion para guardar los datos de usuario
-            
             $_SESSION['usuario'] = $usuario;
             if (isset($_SESSION['errores'])){
                 session_unset($_SESSION['errores']);

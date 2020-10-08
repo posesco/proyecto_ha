@@ -2,10 +2,10 @@
 require_once 'includes/mysql.php';
 require_once 'includes/redis.php';
 require_once 'includes/mongo.php';
+require_once 'includes/helpers.php';
 ?>
 <div class="info-cabeza">
     <h1>Informacion del Sistema</h1>
-    <?php var_dump($_GET);?>
     <table border="0">
         <tr>
             <td>

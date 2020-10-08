@@ -11,8 +11,14 @@ services:
       - ./app:/srv/www/app
       - ./php/www.conf:/usr/local/etc/php-fpm.d/www.conf
       - ./php/ini/php.ini:/usr/local/etc/php/conf.d/php.ini
+      - ./php/keepalived/master/keepalived.conf:/etc/keepalived/keepalived.conf
     env_file: ./.env
     restart: unless-stopped
+    cap_add:
+      - SYS_MODULE
+      - NET_ADMIN
+      - NET_RAW
+      - NET_BROADCAST
     privileged: true
     sysctls:
       - net.ipv4.ip_nonlocal_bind=1
@@ -27,8 +33,14 @@ services:
       - ./app:/srv/www/app
       - ./php/www.conf:/usr/local/etc/php-fpm.d/www.conf
       - ./php/ini/php.ini:/usr/local/etc/php/conf.d/php.ini
+      - ./php/keepalived/backup/keepalived.conf:/etc/keepalived/keepalived.conf
     env_file: ./.env
     restart: unless-stopped
+    cap_add:
+      - SYS_MODULE
+      - NET_ADMIN
+      - NET_RAW
+      - NET_BROADCAST
     privileged: true
     sysctls:
       - net.ipv4.ip_nonlocal_bind=1

@@ -2,12 +2,10 @@
 if (isset($_POST)) {
     // Cargar conexion a DB
     require_once 'includes/mysql.php';
+    require_once 'includes/helpers.php';
     // Inicio de Sesion
-    if (!isset($_SESSION)) {
-        session_start();
-    }
     $user     = isset ($_POST['user']) ? mysqli_real_escape_string ($db, $_POST['user']) : false ;
-    $correo     = isset ($_POST['email']) ? mysqli_real_escape_string ($db, trim($_POST['email'])) : false ;
+    $correo     = isset ($_POST['email']) ? mysqli_real_escape_string ($db, $_POST['email']) : false ;
     $password   = isset ($_POST['password']) ? mysqli_real_escape_string ($db, $_POST['password']) : false ;
     // Array de errores
     $errores = [];
@@ -15,7 +13,7 @@ if (isset($_POST)) {
     if (empty($user)) {
         $errores['user'] = 'Datos no validos para usuario';
     }
-    if (empty($correo) && filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+    if (empty($correo)) {
         $errores['email'] = 'Datos no validos para correo';
     }
     if (empty($password)) {
@@ -29,6 +27,7 @@ if (isset($_POST)) {
         $sql = "INSERT INTO usuarios(usuario, email, pass) VALUES ('$user','$correo','$password_segura')";
         $guardar = mysqli_query($db, $sql);
         if ($guardar) {
+            borrarErrores();
             $_SESSION['completado'] = 'Registro existoso!';
         }else {
             $_SESSION['errores']['general'] = 'Fallo al guardar';
@@ -38,7 +37,5 @@ if (isset($_POST)) {
         $_SESSION['errores'] = $errores;
     }
 }
-
 header('Location:index.php?registro');
-
 ?>

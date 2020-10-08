@@ -12,3 +12,13 @@ openssl req -newkey rsa:2048 -nodes -keyout wiediilocal.key -x509 -sha512 -days 
 Permitir certificado en Chrome 
     chrome://flags/#allow-insecure-localhost
 
+Ejecutar Keepalived
+
+/usr/sbin/keepalived -P -C -d -D -S 7 -f /etc/keepalived/keepalived.conf --dont-fork --log-console
+
+
+Redis
+
+en php.ini se modificaron las lineas:
+session.save_handler = redis
+session.save_path = "tcp://192.168.20.7:6379"

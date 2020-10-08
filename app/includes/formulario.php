@@ -1,21 +1,29 @@
-<?php if (isset($_GET['registro'])) : ?>
+<?php
+var_dump($_SESSION);
+var_dump($_GET)
+?>
     <!-- INICIO FORMULARIO DE REGISTRO -->
+    <?php if (isset($_GET['registro'])) : ?>
     <div class="formulario">
         <h1>Formulario de Registro</h1>
+        <!-- Muestra error de registro -->
         <?php if (isset($_SESSION['completado'])) : ?>
             <div class='alerta-exito'>
-                <?php echo $_SESSION['completado'] ?>
+                <?= $_SESSION['completado'] ?>
             </div>
         <?php elseif (isset($_SESSION['errores']['general'])) : ?>
             <div class='alerta-fallo'>
-                <?php echo $_SESSION['errores']['general'] ?>
+                <?= $_SESSION['errores']['general'] ?>
             </div>
         <?php endif; ?>
         <form action="registro.php" method="POST">
+            <?php echo isset($_SESSION['errores']) ? mostrarError($_SESSION['errores'], 'user'): '';?>
             <label for="user">Usuario</label>
             <input type="text" name="user">
+            <?php echo isset($_SESSION['errores']) ? mostrarError($_SESSION['errores'], 'email'): '';?>
             <label for="email">Correo</label>
             <input type="email" name="email">
+            <?php echo isset($_SESSION['errores']) ? mostrarError($_SESSION['errores'], 'password'): '';?>
             <label for="password">Contraseña</label>
             <input type="password" name="password">
             <input type="submit" value="Registrar">
@@ -23,7 +31,7 @@
         </form>
     </div>
     <!-- FIN FORMULARIO DE REGISTRO -->
-<?php elseif (!isset($_SESSION)) : ?>
+<?php elseif (empty($_GET)) : ?>
     <!-- INICIO FORMULARIO LOGIN -->
     <div class="formulario">
         <h1>Inicio de Sesion</h1>
