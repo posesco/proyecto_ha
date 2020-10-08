@@ -35,9 +35,9 @@ require_once 'includes/mongo.php';
             <td></td>
             <td>
                 <?php
-                echo '<strong>Version Server Mongo: </strong>' . $v_redis["redis_version"];
+                echo '<strong>Version Server Mongo: </strong>';
                 echo '<br>';
-                echo '<strong>Version Cliente Mongo: </strong>' . phpversion('redis');
+                echo '<strong>Version Cliente Mongo: </strong>';
                 echo '<br>';
                 echo '<strong>Estado Redis: </strong>';
                 echo '<br>';

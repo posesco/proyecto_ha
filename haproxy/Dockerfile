@@ -7,5 +7,3 @@ COPY ./conf/haproxy.cfg /usr/local/etc/haproxy/haproxy.cfg
 COPY ./keepalived /etc/keepalived
 COPY ./ssl /etc/ssl
 EXPOSE 80 443
-# CMD service rsyslog start
-# CMD haproxy -f /usr/local/etc/haproxy/haproxy.cfg

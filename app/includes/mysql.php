@@ -1,5 +1,5 @@
 <?php
-$servidor = 'db';
+$servidor = '192.168.20.5';
 $usuario = getenv('MYSQL_USER');
 $password = getenv('MYSQL_PASSWORD');
 $basededatos = getenv('MYSQL_DATABASE');
