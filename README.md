@@ -22,3 +22,9 @@ Redis
 en php.ini se modificaron las lineas:
 session.save_handler = redis
 session.save_path = "tcp://192.168.20.7:6379"
+
+
+SFTP 
+Creacion de llave 
+ssh-keygen -f sftp-key -m PEM
+chmod 600 sftp-key.pub

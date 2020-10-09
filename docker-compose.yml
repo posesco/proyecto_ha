@@ -25,28 +25,28 @@ services:
     networks: 
       infra_lab:
         ipv4_address: 192.168.20.2
-  php2:
-    container_name: SERVER_PHP_2
-    build:
-      context: ./php
-    volumes:
-      - ./app:/srv/www/app
-      - ./php/www.conf:/usr/local/etc/php-fpm.d/www.conf
-      - ./php/ini/php.ini:/usr/local/etc/php/conf.d/php.ini
-      - ./php/keepalived/backup/keepalived.conf:/etc/keepalived/keepalived.conf
-    env_file: ./.env
-    restart: unless-stopped
-    cap_add:
-      - SYS_MODULE
-      - NET_ADMIN
-      - NET_RAW
-      - NET_BROADCAST
-    privileged: true
-    sysctls:
-      - net.ipv4.ip_nonlocal_bind=1
-    networks: 
-      infra_lab:
-        ipv4_address: 192.168.20.3
+  # php2:
+  #   container_name: SERVER_PHP_2
+  #   build:
+  #     context: ./php
+  #   volumes:
+  #     - ./app:/srv/www/app
+  #     - ./php/www.conf:/usr/local/etc/php-fpm.d/www.conf
+  #     - ./php/ini/php.ini:/usr/local/etc/php/conf.d/php.ini
+  #     - ./php/keepalived/backup/keepalived.conf:/etc/keepalived/keepalived.conf
+  #   env_file: ./.env
+  #   restart: unless-stopped
+  #   cap_add:
+  #     - SYS_MODULE
+  #     - NET_ADMIN
+  #     - NET_RAW
+  #     - NET_BROADCAST
+  #   privileged: true
+  #   sysctls:
+  #     - net.ipv4.ip_nonlocal_bind=1
+  #   networks: 
+  #     infra_lab:
+  #       ipv4_address: 192.168.20.3
   # Contenedor Base de Datos SQL
   db:
     container_name: DB_SQL
@@ -87,19 +87,19 @@ services:
     networks:
       infra_lab:
         ipv4_address: 192.168.20.7
-  redis2:
-    container_name: REDIS_CACHE_SESIONES_2
-    image: redis:latest
-    volumes:
-      - ./redis/sessions:/data
-    command: redis-server --appendonly yes
-    restart: unless-stopped
-    privileged: true
-    sysctls:
-      - net.ipv4.ip_nonlocal_bind=1
-    networks:
-      infra_lab:
-        ipv4_address: 192.168.20.8
+  # redis2:
+  #   container_name: REDIS_CACHE_SESIONES_2
+  #   image: redis:latest
+  #   volumes:
+  #     - ./redis/sessions:/data
+  #   command: redis-server --appendonly yes
+  #   restart: unless-stopped
+  #   privileged: true
+  #   sysctls:
+  #     - net.ipv4.ip_nonlocal_bind=1
+  #   networks:
+  #     infra_lab:
+  #       ipv4_address: 192.168.20.8
   # Contenedor Base de Datos Mongo    
   mongo:
     container_name: DB_MONGO
@@ -142,7 +142,6 @@ services:
     sysctls:
       - net.ipv4.ip_nonlocal_bind=1
     ports:
-      - 2080:80
       - 2043:443
     depends_on: 
       - nginx1
@@ -191,8 +190,64 @@ services:
     networks:
       infra_lab:
         ipv4_address: 192.168.20.16
+# Contenedores SFTP ip Flotante 192.168.20.19
+  sftp1:
+    container_name: ALMACEN_SFTP_1
+    build:
+      context: ./sftp
+    hostname: almacen.local
+    volumes:
+      - ./sftp/storage_a:/home/remote_user
+      - ./sftp/key:/root/.ssh
+    env_file: ./.env
+    restart: unless-stopped
+    cap_add:
+      - SYS_MODULE
+      - NET_ADMIN
+      - NET_RAW
+      - NET_BROADCAST
+    privileged: true
+    sysctls:
+      - net.ipv4.ip_nonlocal_bind=1
+    networks:
+      infra_lab:
+        ipv4_address: 192.168.20.17
 
-  # # Gestor visual de Base de Datos SOLO POR EL CURSO
+  sftp2:
+    container_name: ALMACEN_SFTP_2
+    build:
+      context: ./sftp
+    hostname: almacen.local
+    volumes:
+      - ./sftp/storage_b:/home/remote_user
+      - ./sftp/key:/root/.ssh
+    env_file: ./.env
+    restart: unless-stopped
+    cap_add:
+      - SYS_MODULE
+      - NET_ADMIN
+      - NET_RAW
+      - NET_BROADCAST
+    privileged: true
+    sysctls:
+      - net.ipv4.ip_nonlocal_bind=1
+    networks:
+      infra_lab:
+        ipv4_address: 192.168.20.18
+# Contenedor Jenkins 
+  jenkins:
+    container_name: JENKINS
+    hostname: jenkins.local
+    build:
+      context: ./jenkins
+    ports:
+      - '9090:8080'
+    volumes:
+      - ./jenkins/jenkins_home:/var/jenkins_home
+    networks:
+      infra_lab:
+        ipv4_address: 192.168.20.20
+  # # Gestor visual de Base de Datos
   phpmyadmin:
     container_name: GESTOR_BASE_DATOS
     image: phpmyadmin/phpmyadmin:latest

@@ -11,16 +11,16 @@
                 <a href="index.php?crear_entrada">Crear</a>
             </li>
             <li>
-                <a href="index.php?borrar_entrada">Borrar</a>
-            </li>
-            <li>
-                <a href="index.php?modificar_entrada">Modificar</a>
-            </li>
-            <li>
-                <a href="index.php?actividad">Registro de Actividad (Mongo)</a>
+                <a href="index.php?eliminar_entrada">Borrar</a>
             </li>
             <li>
                 <a href="index.php?sesiones">Registro de Sesiones (Redis)</a>
+            </li>
+            <li>
+                <a href="views/info.php">Info PHP</a>
+            </li>
+            <li>
+                <a href="http://localhost:9090">Jenkins</a>
             </li>
             <li>
                 <a href="controllers/cerrar_sesion.php">Cerrar Sesion</a>

@@ -1,11 +1,15 @@
 <?php if (isset($_SESSION['usuario'])) : ?>
-    <?php require_once 'menu.php';?>
+    <?php require_once 'menu.php'; ?>
     <!-- INICIO DE CUERPO -->
     <div class="principal">
         <h1>Ultimas Entradas</h1>
         <?php
         // el parametro db viene de conexion.php
-        $entradas = conseguirEntradas($db, true);
+        if ($_SERVER['REQUEST_URI'] == '/index.php?todas') {
+            $entradas = conseguirEntradas($db);
+        } else {
+            $entradas = conseguirEntradas($db, true);
+        }
         if (!empty($entradas)) :
             while ($entrada = mysqli_fetch_assoc($entradas)) :
         ?>
@@ -26,11 +30,13 @@
             endwhile;
         endif;
         ?>
-        <div id="ver-todas">
-            <a href="entradas.php">
-                <h2>Ver todas las entradas</h2>
-            </a>
-        </div>
+        <?php if ($_SERVER['REQUEST_URI'] == '/index.php') : ?>
+            <div id="ver-todas">
+                <a href="index.php?todas">
+                    <h2>Ver todas las entradas</h2>
+                </a>
+            </div>
+        <?php endif; ?>
     </div>
     <!-- FIN DE CUERPO -->
 <?php endif; ?>

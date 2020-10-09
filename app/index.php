@@ -17,6 +17,9 @@
         case '/index.php?crear_entrada':
             require_once 'views/crear_entrada.php';
             break;
+        case '/index.php?eliminar_entrada':
+            require_once 'views/eliminar_entrada.php';
+            break;
         case '/index.php?sesiones':
             require_once 'views/sesiones.php';
             break;
