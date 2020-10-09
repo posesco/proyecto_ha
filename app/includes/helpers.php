@@ -21,4 +21,21 @@ function borrarErrores(){
     return $borrado;
 }
 
+function conseguirEntradas($conexion, $limit = null){
+    $sql = "SELECT e.*, u.usuario AS 'autor' 
+            FROM entradas e 
+            INNER JOIN usuarios u ON e.usuario_id = u.id
+            ORDER BY e.id DESC";
+    if($limit){
+        // Concatenamiento para un limite de 4 entradas
+        $sql .= " LIMIT 4";
+    }
+    $entradas = mysqli_query($conexion, $sql); 
+    $resultado= array();
+    if ($entradas && mysqli_num_rows($entradas) >=1 ) {
+        $resultado = $entradas;
+    }
+    return $resultado;
+}
+
 ?>

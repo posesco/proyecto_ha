@@ -1,7 +1,3 @@
-<?php
-var_dump($_SESSION);
-var_dump($_GET)
-?>
 <!-- INICIO FORMULARIO DE REGISTRO -->
 <?php if (isset($_GET['registro'])) : ?>
     <div class="formulario">
@@ -16,7 +12,7 @@ var_dump($_GET)
                 <?= $_SESSION['errores']['general'] ?>
             </div>
         <?php endif; ?>
-        <form action="registro.php" method="POST">
+        <form action="controllers/registro.php" method="POST">
             <?php echo isset($_SESSION['errores']) ? mostrarError($_SESSION['errores'], 'user') : ''; ?>
             <label for="user">Usuario</label>
             <input type="text" name="user">
@@ -27,7 +23,7 @@ var_dump($_GET)
             <label for="password">Contraseña</label>
             <input type="password" name="password">
             <input type="submit" value="Registrar">
-            <a href="index.php">Iniciar Sesion</a>
+            <a href="controllers/cerrar_sesion.php">Iniciar Sesion</a>
         </form>
     </div>
     <!-- FIN FORMULARIO DE REGISTRO -->
@@ -40,7 +36,7 @@ var_dump($_GET)
                 <?= $_SESSION['errores'] ?>
             </div>
         <?php endif; ?>
-        <form action="inicio.php" method="POST">
+        <form action="controllers/inicio.php" method="POST">
             <label for="user">Usuario</label>
             <input type="text" name="user">
             <label for="password">Contraseña</label>

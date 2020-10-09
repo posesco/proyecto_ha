@@ -1,7 +1,7 @@
 <?php
 // Cargar conexion a DB
-require_once 'includes/mysql.php';
-require_once 'includes/redis.php';
+require_once '../includes/mysql.php';
+require_once '../includes/redis.php';
 if (isset($_POST)) {
     // Recoger los datos del formulario
     $user = ($_POST['user']);
@@ -26,5 +26,5 @@ if (isset($_POST)) {
         $_SESSION['errores'] = 'Usuario no exite!!';
     }   
 }
-header('Location:index.php');
+header('Location:../index.php');
 ?>

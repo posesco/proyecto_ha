@@ -10,9 +10,9 @@
 
 <body>
     <?php
-    require_once 'includes/cabecera.php';
-    require_once 'includes/formulario.php';
-    require_once 'includes/cuerpo.php';
+    require_once 'views/cabecera.php';
+    require_once 'views/formulario.php';
+    require_once 'views/cuerpo.php';
     ?>
 </body>
 

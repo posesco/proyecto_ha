@@ -164,3 +164,8 @@ body {
 .formulario a:hover {
   color: #fff;
 }
+
+#ver-todas a{
+  float: right;
+  font-style: oblique;
+}
