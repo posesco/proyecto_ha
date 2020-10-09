@@ -122,7 +122,17 @@ body {
   color: #fff;
   font-size: 16px;
 }
-
+.formulario textarea {
+  width: 1090px;
+  height: 152px;
+  margin-bottom: 20px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  background: transparent;
+  outline: none;
+  color: #fff;
+  font-size: 16px;
+}
 .formulario select {
   width: 100%;
   margin-bottom: 20px;

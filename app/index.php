@@ -12,7 +12,18 @@
     <?php
     require_once 'views/cabecera.php';
     require_once 'views/formulario.php';
-    require_once 'views/cuerpo.php';
+    $vista = $_SERVER['REQUEST_URI'];
+    switch ($vista) {
+        case '/index.php?crear_entrada':
+            require_once 'views/crear_entrada.php';
+            break;
+        case '/index.php?sesiones':
+            require_once 'views/sesiones.php';
+            break;
+        default:
+            require_once 'views/cuerpo.php';
+            break;
+    }
     ?>
 </body>
 

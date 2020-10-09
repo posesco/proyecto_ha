@@ -1,25 +1,5 @@
 <?php if (isset($_SESSION['usuario'])) : ?>
-    <!-- INICIO DE BARRA HORIZONTAL -->
-    <nav id="menu">
-        <ul>
-            <li>
-                <?php echo 'Bienvenido Usuario: ' . $_SESSION['usuario']['usuario'] ?>
-            </li>
-            <li>
-                <a href="views/crear_entrada.php">Crear Entrada</a>
-            </li>
-            <li>
-                <a href="controllers/borrar_entrada.php">Borrar Entrada</a>
-            </li>
-            <li>
-                <a href="views/modificar_entrada.php">Modificar Entrada</a>
-            </li>
-            <li>
-                <a href="controllers/cerrar_sesion.php">Cerrar Sesion</a>
-            </li>
-        </ul>
-    </nav>
-    <!-- FIN DE BARRA HORIZONTAL -->
+    <?php require_once 'menu.php';?>
     <!-- INICIO DE CUERPO -->
     <div class="principal">
         <h1>Ultimas Entradas</h1>

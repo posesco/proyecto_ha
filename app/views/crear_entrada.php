@@ -1,59 +1,28 @@
 <?php if (isset($_SESSION['usuario'])) : ?>
-    <!-- INICIO DE BARRA HORIZONTAL -->
-    <nav id="menu">
-        <ul>
-            <li>
-                <?php echo 'Bienvenido Usuario: ' . $_SESSION['usuario']['usuario'] ?>
-            </li>
-            <li>
-                <a href="views/crear_entrada.php">Crear Entrada</a>
-            </li>
-            <li>
-                <a href="controllers/borrar_entrada.php">Borrar Entrada</a>
-            </li>
-            <li>
-                <a href="views/modificar_entrada.php">Modificar Entrada</a>
-            </li>
-            <li>
-                <a href="controllers/cerrar_sesion.php">Cerrar Sesion</a>
-            </li>
-        </ul>
-    </nav>
-    <!-- FIN DE BARRA HORIZONTAL -->
+    <?php require_once 'menu.php'; ?>
     <!-- INICIO DE CUERPO -->
-    <div class="principal">
+    <div class="formulario">
         <h1>Crear Entradas</h1>
         <p>
-        Crea tus entradas para el blog
+        <h2>Crea tus entradas para el blog</h2>    
         </p>
-        <?php
-        // el parametro db viene de conexion.php
-        $entradas = conseguirEntradas($db, true);
-        if (!empty($entradas)) :
-            while ($entrada = mysqli_fetch_assoc($entradas)) :
-        ?>
-                <article class="entrada">
-                    <a href="entrada.php?id=<?= $entrada['id'] ?>">
-                        <h2><?= $entrada['titulo'] ?></h2>
-                    </a>
-                    <span class="fecha"><?= 'Autor: ' . $entrada['autor'] . ' | ' . $entrada['fecha'] ?></span>
-                    <p>
-                        <p>
-                            <img src='<?= $entrada['imagen'] ?>' width='150px' align="bottom">
-
-                        </p>
-                        <?= $entrada['descripcion'] ?>
-                    </p>
-                </article>
-        <?php
-            endwhile;
-        endif;
-        ?>
-        <div id="ver-todas">
-            <a href="entradas.php">
-                <h2>Ver todas las entradas</h2>
-            </a>
-        </div>
+        <!-- Muestra error de registro -->
+        <form action="controllers/guardar_entradas.php" method="POST" enctype="multipart/form-data">
+            <?php echo isset($_SESSION['errores']) ? mostrarError($_SESSION['errores'], 'titulo') : ''; ?>
+            <label for="titulo">Titulo de la Entrada</label>
+            <input type="text" name="titulo">
+            <br>
+            <br>
+            <?php echo isset($_SESSION['errores']) ? mostrarError($_SESSION['errores'], 'descripcion') : ''; ?>
+            <label for="descripcion">Cuerpo de la entrada</label>
+            <textarea name="descripcion" placeholder="Escribe tu entrada" cols="80" rows="15"></textarea>
+            <label for="descripcion">Sube una imagen sobre tu post</label>
+            <br>
+            <input type="file" name="archivo">
+            <br>
+            <input type="submit" value="Crear entrada">
+        </form>
+        <?php borrarErrores(); ?>
     </div>
     <!-- FIN DE CUERPO -->
 <?php endif; ?>
