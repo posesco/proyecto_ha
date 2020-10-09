@@ -3,16 +3,19 @@
     <nav id="menu">
         <ul>
             <li>
-                <a href="contacto.php">Cerrar Sesion</a>
+                <?php echo 'Bienvenido Usuario: '.$_SESSION['usuario']['usuario']?> 
             </li>
             <li>
-                <a href="sobremi.php">Borrar Entrada</a>
+                <a href="crear_entrada.php">Crear Entrada</a>
             </li>
             <li>
-                <a href="contacto.php">Modificar Entrada</a>
+                <a href="borrar_entrada.php">Borrar Entrada</a>
             </li>
             <li>
-                <a href="index.php">Crear Entrada</a>
+                <a href="modificar_entrada.php">Modificar Entrada</a>
+            </li>
+            <li>
+                <a href="cerrar_sesion.php">Cerrar Sesion</a>
             </li>
         </ul>
     </nav>

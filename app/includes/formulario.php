@@ -2,8 +2,8 @@
 var_dump($_SESSION);
 var_dump($_GET)
 ?>
-    <!-- INICIO FORMULARIO DE REGISTRO -->
-    <?php if (isset($_GET['registro'])) : ?>
+<!-- INICIO FORMULARIO DE REGISTRO -->
+<?php if (isset($_GET['registro'])) : ?>
     <div class="formulario">
         <h1>Formulario de Registro</h1>
         <!-- Muestra error de registro -->
@@ -17,13 +17,13 @@ var_dump($_GET)
             </div>
         <?php endif; ?>
         <form action="registro.php" method="POST">
-            <?php echo isset($_SESSION['errores']) ? mostrarError($_SESSION['errores'], 'user'): '';?>
+            <?php echo isset($_SESSION['errores']) ? mostrarError($_SESSION['errores'], 'user') : ''; ?>
             <label for="user">Usuario</label>
             <input type="text" name="user">
-            <?php echo isset($_SESSION['errores']) ? mostrarError($_SESSION['errores'], 'email'): '';?>
+            <?php echo isset($_SESSION['errores']) ? mostrarError($_SESSION['errores'], 'email') : ''; ?>
             <label for="email">Correo</label>
             <input type="email" name="email">
-            <?php echo isset($_SESSION['errores']) ? mostrarError($_SESSION['errores'], 'password'): '';?>
+            <?php echo isset($_SESSION['errores']) ? mostrarError($_SESSION['errores'], 'password') : ''; ?>
             <label for="password">Contraseña</label>
             <input type="password" name="password">
             <input type="submit" value="Registrar">
@@ -31,10 +31,15 @@ var_dump($_GET)
         </form>
     </div>
     <!-- FIN FORMULARIO DE REGISTRO -->
-<?php elseif (empty($_GET)) : ?>
+<?php elseif (!isset($_SESSION['usuario'])) : ?>
     <!-- INICIO FORMULARIO LOGIN -->
     <div class="formulario">
         <h1>Inicio de Sesion</h1>
+        <?php if (isset($_SESSION['errores'])) : ?>
+            <div class='alerta-fallo'>
+                <?= $_SESSION['errores'] ?>
+            </div>
+        <?php endif; ?>
         <form action="inicio.php" method="POST">
             <label for="user">Usuario</label>
             <input type="text" name="user">

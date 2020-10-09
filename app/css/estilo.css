@@ -35,13 +35,13 @@ body {
 }
 
 #menu ul li{
-  float: right;
+  float: left;
   text-transform: uppercase;
   text-decoration: none;
   margin-top: 1%;
   margin-left: 1%;
   line-height: 20px;
-  border-right: 1px solid white;
+  color: #adff2f;
 }
 
 #menu ul li a{
