@@ -142,7 +142,7 @@ services:
     sysctls:
       - net.ipv4.ip_nonlocal_bind=1
     ports:
-      - 2043:443
+      - 2443:443
     depends_on: 
       - nginx1
       - nginx2
@@ -195,11 +195,11 @@ services:
     container_name: ALMACEN_SFTP_1
     build:
       context: ./sftp
-    hostname: almacen.local
+    hostname: almacen1.local
     volumes:
-      - ./sftp/storage_a:/home/remote_user
-      - ./sftp/key:/root/.ssh
-    env_file: ./.env
+      - ./sftp/storage_a:/home/remote_user/almacen
+      - ./sftp/key:/home/remote_user/.ssh/
+      - ./sftp/conf/sshd_config:/etc/ssh/sshd_config
     restart: unless-stopped
     cap_add:
       - SYS_MODULE
@@ -217,11 +217,11 @@ services:
     container_name: ALMACEN_SFTP_2
     build:
       context: ./sftp
-    hostname: almacen.local
+    hostname: almacen2.local
     volumes:
-      - ./sftp/storage_b:/home/remote_user
-      - ./sftp/key:/root/.ssh
-    env_file: ./.env
+      - ./sftp/storage_b:/home/remote_user/almacen
+      - ./sftp/key/remote-key.pub:/home/remote_user/.ssh/authorized_keys
+      - ./sftp/conf/sshd_config:/etc/ssh/sshd_config
     restart: unless-stopped
     cap_add:
       - SYS_MODULE

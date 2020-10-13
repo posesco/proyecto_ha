@@ -1,7 +1,5 @@
 Highly Available
 
-Creacion de llaves SSH
-ssh-keygen -f remote-key -m PEM
 
 Creacion de Certificado autofirmado
 openssl req -newkey rsa:2048 -nodes -keyout wiediilocal.key -x509 -sha512 -days 365 -out wiediilocal.crt
@@ -25,6 +23,17 @@ session.save_path = "tcp://192.168.20.7:6379"
 
 
 SFTP 
-Creacion de llave 
-ssh-keygen -f sftp-key -m PEM
-chmod 600 sftp-key.pub
+Creacion de llaves SSH
+mkdir key
+chmod 700 key
+ssh-keygen -f remote-key -t dsa
+chmod 644 remote-key.pub
+
+PubkeyAuthentication yes
+AuthorizedKeysFile .ssh/authorized_keys
+PasswordAuthentication yes
+PermitRootLogin yes
+IdentityFile ~/.ssh/id_rsa
+
+
+ssh-keygen -t dsa -f "/home/remote_user/.ssh/id_dsa" -N ""

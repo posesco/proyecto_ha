@@ -1,4 +1,5 @@
 <?php
+require_once '../includes/sftp.php';
 if (isset($_POST)) {
     // Cargar conexion a DB
     require_once '../includes/mysql.php';
@@ -20,6 +21,7 @@ if (isset($_POST)) {
     }
     if ($tipo == "image/jpg" || $tipo == "image/jpeg" || $tipo == "image/png" || $tipo == "image/gif" || $tipo == "image/svg") {
         move_uploaded_file($archivo['tmp_name'], '../img/' . $nombre);
+        $subida = @fopen("ssh2.sftp://$sftp/home/remote_user/almacen/$nombre", 'w');
     } else {
         $errores['archivo'] = 'Solo se permiten imagenes de extensiones jpg, jpeg, png, gif o svg';
     }
