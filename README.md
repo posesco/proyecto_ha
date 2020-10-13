@@ -36,4 +36,4 @@ PermitRootLogin yes
 IdentityFile ~/.ssh/id_rsa
 
 
-ssh-keygen -t dsa -f "/home/remote_user/.ssh/id_dsa" -N ""
+ssh-keygen -t dsa -f "/home/remote_user/.ssh/id_dsa" -N "" 

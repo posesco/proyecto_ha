@@ -15,7 +15,6 @@ RUN apt-get update &&\
     rsync \
     lsyncd \
     zip \
-    nano \
     curl
 # Creacion de usuario ssh y habilitacion del servicio
 RUN useradd remote_user && \
@@ -24,9 +23,5 @@ RUN useradd remote_user && \
     chmod -R 700 /home/remote_user &&\
     chown -Rf remote_user:remote_user /home/remote_user &&\
     service ssh start
-# Vinculo con AWS
-RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" &&\
-    unzip awscliv2.zip &&\
-    ./aws/install  
 # Activacion de servicios SSH en segundo plano
 CMD /usr/sbin/sshd -D -e
