@@ -162,9 +162,10 @@ services:
       context: ./sftp
     hostname: almacen1.local
     volumes:
-      - ./sftp/storage_a:/home/remote_user/almacen
       - ./sftp/key:/root/.ssh
       - ./sftp/conf/sshd_config:/etc/ssh/sshd_config
+      - ./sftp/conf/lsyncd.conf.lua:/etc/lsyncd/lsyncd.conf.lua
+      - ./sftp/storage_a:/home/remote_user/almacen
     restart: unless-stopped
     cap_add:
       - SYS_MODULE
@@ -212,6 +213,21 @@ services:
     networks:
       infra_lab:
         ipv4_address: 192.168.20.20
+# Contenedor VPN
+  vpn:
+    container_name: VPN
+    hostname: vpn.local
+    image: kylemanna/openvpn:2.4
+    cap_add:
+      - NET_ADMIN
+    ports:
+     - 1194:1194/udp
+    volumes:
+      - ./vpn:/etc/openvpn
+    restart: unless-stopped
+    networks:
+      infra_lab:
+        ipv4_address: 192.168.20.21
   # Gestor visual de Base de Datos
   phpmyadmin:
     container_name: GESTOR_BASE_DATOS

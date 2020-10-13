@@ -14,7 +14,6 @@ RUN apt-get update &&\
     openssh-server \
     rsync \
     lsyncd \
-    zip \
     curl
 # Creacion de usuario ssh y habilitacion del servicio
 RUN useradd remote_user && \
@@ -23,5 +22,7 @@ RUN useradd remote_user && \
     chmod -R 700 /home/remote_user &&\
     chown -Rf remote_user:remote_user /home/remote_user &&\
     service ssh start
+RUN mkdir -p /var/log/lsyncd &&\
+    service lsyncd start
 # Activacion de servicios SSH en segundo plano
 CMD /usr/sbin/sshd -D -e

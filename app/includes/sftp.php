@@ -6,4 +6,3 @@ $enlace = ssh2_connect($servidorssh, 22);
 ssh2_auth_password($enlace, $usuario, $pass);
 $sftp = ssh2_sftp($enlace);
 $fingerprint = ssh2_fingerprint($enlace, SSH2_FINGERPRINT_MD5 | SSH2_FINGERPRINT_HEX);
-?>

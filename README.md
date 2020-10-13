@@ -37,3 +37,19 @@ IdentityFile ~/.ssh/id_rsa
 
 
 ssh-keygen -t dsa -f "/home/remote_user/.ssh/id_dsa" -N "" 
+
+VPN:
+
+docker-compose run --rm vpn ovpn_genconfig -u udp://localhost
+docker-compose run --rm vpn ovpn_initpki
+chown -R $(whoami): vpn
+
+export CLIENTNAME="posesco"
+
+# con contraseña
+docker-compose run --rm vpn easyrsa build-client-full $CLIENTNAME
+# sin contraseña
+docker-compose run --rm vpn easyrsa build-client-full $CLIENTNAME nopass
+
+
+docker-compose run --rm vpn ovpn_getclient $CLIENTNAME > $CLIENTNAME.ovpn
