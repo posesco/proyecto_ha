@@ -1,5 +1,5 @@
 <?php
-$servidorssh = '192.168.20.17';
+$servidorssh = '192.168.20.19';
 $usuario = 'remote_user';
 $pass = 'kv5OmlgW7@J4';
 $enlace = ssh2_connect($servidorssh, 22);

@@ -1,6 +1,6 @@
 FROM php:7.4-fpm
 RUN apt-get update && \
-    apt-get install --no-install-recommends --no-install-suggests -y \
+    apt-get install -y \
         libfreetype6-dev \
         libfreetype6-dev \
         libjpeg62-turbo-dev \

@@ -166,6 +166,7 @@ services:
       - ./sftp/conf/sshd_config:/etc/ssh/sshd_config
       - ./sftp/conf/lsyncd.conf.lua:/etc/lsyncd/lsyncd.conf.lua
       - ./sftp/storage_a:/home/remote_user/almacen
+      - ./sftp/conf/keepalived_server_a.conf:/etc/keepalived/keepalived.conf
     restart: unless-stopped
     cap_add:
       - SYS_MODULE
@@ -185,9 +186,10 @@ services:
       context: ./sftp
     hostname: almacen2.local
     volumes:
+      - ./sftp/conf/sshd_config:/etc/ssh/sshd_config
       - ./sftp/storage_b:/home/remote_user/almacen
       - ./sftp/key/authorized_keys:/root/.ssh/authorized_keys
-      - ./sftp/conf/sshd_config:/etc/ssh/sshd_config
+      - ./sftp/conf/keepalived_server_b.conf:/etc/keepalived/keepalived.conf
     restart: unless-stopped
     cap_add:
       - SYS_MODULE
