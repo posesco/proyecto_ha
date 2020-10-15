@@ -1,8 +1,8 @@
 # Entorno LEMP Basico 
 version: '3.8'
 services:
-#   # Contenedor de aplicacion php (Solo interpreta el lenguaje)
-#   # Ip flotante 192.168.20.4
+   # Contenedor de aplicacion php (Solo interpreta el lenguaje)
+   # Ip flotante 192.168.20.4
   php1:
     container_name: SERVER_PHP_1
     hostname: php1.local
@@ -61,11 +61,12 @@ services:
   # Contenedor Base de Datos REDIS Cache MYSQL   
   redis:
     container_name: REDIS_CACHE_MYSQL
+    hostname: cachemysql.local
     image: redis:latest
     # ports:
     #   - "6379:6379"
     volumes:
-      - ./redis/mysql:/data
+      - ./redis/cache:/data
     command: redis-server --appendonly yes
     restart: unless-stopped
     networks:
@@ -75,20 +76,47 @@ services:
   #  Ip Flotante 192.168.20.9
   redis1:
     container_name: REDIS_CACHE_SESIONES_1
-    image: redis:latest
+    hostname: sesiones1.local
+    build: 
+      context: ./redis
     volumes:
-      - ./redis/sessions:/data
+      - ./redis/sessions/data:/data
+      - ./redis/sessions/key:/root/.ssh
+      - ./redis/sessions/conf/sshd_config:/etc/ssh/sshd_config
+      - ./redis/sessions/conf/keepalived_server_a.conf:/etc/keepalived/keepalived.conf
     command: redis-server --appendonly yes
     restart: unless-stopped
-    privileged: true
+    cap_add:
+      - NET_ADMIN
     sysctls:
       - net.ipv4.ip_nonlocal_bind=1
     networks:
       infra_lab:
         ipv4_address: 192.168.20.7
+
+  redis2:
+    container_name: REDIS_CACHE_SESIONES_2
+    hostname: sesiones2.local
+    build: 
+      context: ./redis
+    volumes:
+      - ./redis/sessions/data:/data
+      - ./redis/sessions/key/authorized_keys:/root/.ssh/authorized_keysh
+      - ./redis/sessions/conf/sshd_config:/etc/ssh/sshd_config
+      - ./redis/sessions/conf/keepalived_server_b.conf:/etc/keepalived/keepalived.conf
+    command: redis-server --appendonly yes
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+    sysctls:
+      - net.ipv4.ip_nonlocal_bind=1
+    networks:
+      infra_lab:
+        ipv4_address: 192.168.20.8
   # Contenedor Base de Datos Mongo    
   mongo:
     container_name: DB_MONGO
+    hostname: trackmongo.local
     image: mongo:latest
     volumes:
       - ./mongo:/data
@@ -97,11 +125,11 @@ services:
     networks:
       infra_lab:
         ipv4_address: 192.168.20.10
-#### <<< Multiples Server Web con Balanceo de cargas -- Haproxy y VRRP>>>>>>>        
+# <<< Multiples Server Web con Balanceo de cargas -- Haproxy y VRRP>>>>>>>        
 # Contenedores Haproxy  IP FLOTANTE 192.168.20.13
   haproxy1: 
     container_name: BALANCEADOR_1
-    hostname: haproxy.local
+    hostname: haproxy1.local
     build: 
       context: ./haproxy
     privileged: true
@@ -121,7 +149,7 @@ services:
 
   haproxy2: 
     container_name: BALANCEADOR_2
-    hostname: haproxy.local
+    hostname: haproxy2.local
     build: 
       context: ./haproxy
     privileged: true
@@ -140,9 +168,9 @@ services:
   # Contenedores Server Web
   nginx1: 
     container_name: NGINX_1
+    hostname: web1.local
     build: 
       context: ./nginx
-    hostname: wiediilocal.co
     volumes:
       - ./app:/srv/www/app
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
@@ -153,9 +181,9 @@ services:
 
   nginx2: 
     container_name: NGINX_2
+    hostname: web2.local
     build: 
       context: ./nginx
-    hostname: wiediilocal.co
     volumes:
       - ./app:/srv/www/app
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
@@ -166,9 +194,9 @@ services:
 
   nginx3: 
     container_name: NGINX_3
+    hostname: web3.local
     build: 
       context: ./nginx
-    hostname: wiediilocal.co
     volumes:
       - ./app:/srv/www/app
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
@@ -179,9 +207,9 @@ services:
 # Contenedores SFTP ip Flotante <<<<<< 192.168.20.19 >>>>>>>
   sftp1:
     container_name: ALMACEN_SFTP_1
+    hostname: almacen1.local
     build:
       context: ./sftp
-    hostname: almacen1.local
     volumes:
       - ./sftp/key:/root/.ssh
       - ./sftp/conf/sshd_config:/etc/ssh/sshd_config
@@ -199,9 +227,9 @@ services:
 
   sftp2:
     container_name: ALMACEN_SFTP_2
+    hostname: almacen2.local
     build:
       context: ./sftp
-    hostname: almacen2.local
     volumes:
       - ./sftp/conf/sshd_config:/etc/ssh/sshd_config
       - ./sftp/storage_b:/home/remote_user/almacen
@@ -215,51 +243,20 @@ services:
     networks:
       infra_lab:
         ipv4_address: 192.168.20.18
-# # Contenedor Jenkins 
-#   jenkins:
-#     container_name: JENKINS
-#     hostname: jenkins.local
-#     build:
-#       context: ./jenkins
-#     ports:
-#       - '9090:8080'
-#     volumes:
-#       - ./jenkins/jenkins_home:/var/jenkins_home
-#     networks:
-#       infra_lab:
-#         ipv4_address: 192.168.20.20
-# # Contenedor VPN
-#   vpn:
-#     container_name: VPN
-#     hostname: vpn.local
-#     image: kylemanna/openvpn:2.4
-#     cap_add:
-#       - NET_ADMIN
-#     ports:
-#      - 1194:1194/udp
-#     volumes:
-#       - ./vpn:/etc/openvpn
-#     restart: unless-stopped
-#     networks:
-#       infra_lab:
-#         ipv4_address: 192.168.20.21
-#   # Gestor visual de Base de Datos
-#   phpmyadmin:
-#     container_name: GESTOR_BASE_DATOS
-#     image: phpmyadmin/phpmyadmin:latest
-#     hostname: phpmyadmin.local
-#     ports:
-#       - 8080:80
-#     depends_on: 
-#       - db
-#     volumes: 
-#         - ./php/conf/gestor/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
-#         - ./php/conf/gestor/sessions/:/sessions/
-#     env_file: ./.env
-#     restart: unless-stopped
-#     networks:
-#       infra_lab:
-#         ipv4_address: 192.168.20.50
+# Contenedor Jenkins 
+  jenkins:
+    container_name: JENKINS
+    hostname: jenkins.local
+    build:
+      context: ./jenkins
+    ports:
+      - '8080:8080'
+    volumes:
+      - ./jenkins/jenkins_home:/var/jenkins_home
+    networks:
+      infra_lab:
+        ipv4_address: 192.168.20.20
+
 
 networks:
   infra_lab:

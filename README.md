@@ -33,25 +33,3 @@ Configuracion de sshd_config
     AuthorizedKeysFile .ssh/authorized_keys
     PasswordAuthentication yes
     PermitRootLogin yes
-
-
-VPN:
-
-docker-compose run --rm vpn ovpn_genconfig -u udp://localhost
-docker-compose run --rm vpn ovpn_initpki
-chown -R $(whoami): vpn
-
-export CLIENTNAME="posesco"
-
-# con contraseña
-docker-compose run --rm vpn easyrsa build-client-full $CLIENTNAME
-# sin contraseña
-docker-compose run --rm vpn easyrsa build-client-full $CLIENTNAME nopass
-
-
-docker-compose run --rm vpn ovpn_getclient $CLIENTNAME > $CLIENTNAME.ovpn
-ip addr show eth0
-
-Renovar clientes conocidos
-
-*/1 * * * * /entrypoint.sh

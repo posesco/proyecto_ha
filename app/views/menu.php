@@ -17,10 +17,10 @@
                 <a href="index.php?sesiones">Registro de Sesiones (Redis)</a>
             </li>
             <li>
-                <a href="views/info.php">Info PHP</a>
+                <a href="views/info.php" target="_blank">Info PHP</a>
             </li>
             <li>
-                <a href="http://localhost:9090">Jenkins</a>
+                <a href="http://localhost:8080" target="_blank">Jenkins</a>
             </li>
             <li>
                 <a href="controllers/cerrar_sesion.php">Cerrar Sesion</a>
