@@ -1,8 +1,8 @@
 FROM debian:latest
 # Actualizacion e instalacion de paquetes
-RUN apt-get update &&\
-    apt-get upgrade -y &&\
-    apt-get install -y \
+RUN apt-get update \
+    && apt-get upgrade -y \
+    && apt-get install -y \
     curl \
     liblua5.3-0 \
     libpopt0 \
@@ -15,18 +15,21 @@ RUN apt-get update &&\
     openssh-server \
     rsync \
     lsyncd \
+    rsyslog \
     keepalived 
-# Creacion de usuario ssh y habilitacion del servicio
-RUN useradd remote_user && \
-    echo "remote_user:kv5OmlgW7@J4" | chpasswd && \
-    mkdir -p /home/remote_user/.ssh &&\
-    chmod -R 700 /home/remote_user &&\
-    chown -Rf remote_user:remote_user /home/remote_user &&\
-    service ssh start
+# Creacion de usuario para servicio SFTP
+RUN useradd remote_user \
+    && echo "remote_user:kv5OmlgW7@J4" | chpasswd \
+    && mkdir -p /home/remote_user/.ssh \
+    && chmod -R 700 /home/remote_user \
+    && chown -Rf remote_user:remote_user /home/remote_user \
+    && service ssh start
 # Habilita logs de lsyncd
-RUN mkdir -p /var/log/lsyncd &&\
-    service lsyncd start
-# Activacion de servicios SSH en segundo plano
-CMD ["lsyncd", "-nodaemon", "-delay", "0"]
-CMD /usr/sbin/keepalived -D
-CMD /usr/sbin/sshd -D -e
+RUN mkdir -p /var/log/lsyncd \
+    && sed -i 's/^\(module.*imklog.*\)/# \1/g' /etc/rsyslog.conf \
+    && apt-get autoremove -y   
+# Copia y ejecucion de scrip para activar procesos
+COPY ./entrypoint.sh /entrypoint.sh
+ENTRYPOINT [ "/entrypoint.sh" ]
+CMD tail -f /entrypoint.sh
+# CMD /usr/sbin/sshd -D -e

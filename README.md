@@ -1,6 +1,5 @@
 Highly Available
 
-
 Creacion de Certificado autofirmado
 openssl req -newkey rsa:2048 -nodes -keyout wiediilocal.key -x509 -sha512 -days 365 -out wiediilocal.crt
     X509: Firma y verifica certificados
@@ -22,21 +21,19 @@ session.save_handler = redis
 session.save_path = "tcp://192.168.20.7:6379"
 
 
-SFTP 
-Creacion de llaves SSH
-mkdir key
-chmod 700 key
-ssh-keygen -f remote-key -t dsa
-chmod 644 remote-key.pub
+SSH
+Creacion de llaves
+ssh-keygen
+Verficar permisos:
+    carpeta .ssh 700
+    archivo xxx.pub 644
+Configuracion de sshd_config
+    Descomentar las siguienes lineas
+    PubkeyAuthentication yes
+    AuthorizedKeysFile .ssh/authorized_keys
+    PasswordAuthentication yes
+    PermitRootLogin yes
 
-PubkeyAuthentication yes
-AuthorizedKeysFile .ssh/authorized_keys
-PasswordAuthentication yes
-PermitRootLogin yes
-IdentityFile ~/.ssh/id_rsa
-
-
-ssh-keygen -t dsa -f "/home/remote_user/.ssh/id_dsa" -N "" 
 
 VPN:
 
@@ -53,3 +50,8 @@ docker-compose run --rm vpn easyrsa build-client-full $CLIENTNAME nopass
 
 
 docker-compose run --rm vpn ovpn_getclient $CLIENTNAME > $CLIENTNAME.ovpn
+ip addr show eth0
+
+Renovar clientes conocidos
+
+*/1 * * * * /entrypoint.sh

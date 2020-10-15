@@ -1,30 +1,51 @@
 # Entorno LEMP Basico 
 version: '3.8'
 services:
-  # Contenedor de aplicacion php (Solo interpreta el lenguaje)
-  # Ip flotante 192.168.20.4
+#   # Contenedor de aplicacion php (Solo interpreta el lenguaje)
+#   # Ip flotante 192.168.20.4
   php1:
     container_name: SERVER_PHP_1
+    hostname: php1.local
     build:
       context: ./php
     volumes:
       - ./app:/srv/www/app
-      - ./php/www.conf:/usr/local/etc/php-fpm.d/www.conf
-      - ./php/ini/php.ini:/usr/local/etc/php/conf.d/php.ini
-      - ./php/keepalived/master/keepalived.conf:/etc/keepalived/keepalived.conf
+      - ./php/key:/root/.ssh
+      - ./php/conf/sshd_config:/etc/ssh/sshd_config
+      - ./php/conf/www.conf:/usr/local/etc/php-fpm.d/www.conf
+      - ./php/conf/php.ini:/usr/local/etc/php/conf.d/php.ini
+      - ./php/conf/keepalived_server_a.conf:/etc/keepalived/keepalived.conf
     env_file: ./.env
     restart: unless-stopped
     cap_add:
-      - SYS_MODULE
       - NET_ADMIN
-      - NET_RAW
-      - NET_BROADCAST
-    privileged: true
     sysctls:
       - net.ipv4.ip_nonlocal_bind=1
     networks: 
       infra_lab:
         ipv4_address: 192.168.20.2
+
+  php2:
+    container_name: SERVER_PHP_2
+    hostname: php2.local
+    build:
+      context: ./php
+    volumes:
+      - ./app:/srv/www/app
+      - ./php/key/authorized_keys:/root/.ssh/authorized_keys
+      - ./php/conf/sshd_config:/etc/ssh/sshd_config
+      - ./php/conf/www.conf:/usr/local/etc/php-fpm.d/www.conf
+      - ./php/conf/php.ini:/usr/local/etc/php/conf.d/php.ini
+      - ./php/conf/keepalived_server_b.conf:/etc/keepalived/keepalived.conf
+    env_file: ./.env
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+    sysctls:
+      - net.ipv4.ip_nonlocal_bind=1
+    networks: 
+      infra_lab:
+        ipv4_address: 192.168.20.3
   # Contenedor Base de Datos SQL
   db:
     container_name: DB_SQL
@@ -155,7 +176,7 @@ services:
     networks:
       infra_lab:
         ipv4_address: 192.168.20.16
-# Contenedores SFTP ip Flotante 192.168.20.19
+# Contenedores SFTP ip Flotante <<<<<< 192.168.20.19 >>>>>>>
   sftp1:
     container_name: ALMACEN_SFTP_1
     build:
@@ -169,11 +190,7 @@ services:
       - ./sftp/conf/keepalived_server_a.conf:/etc/keepalived/keepalived.conf
     restart: unless-stopped
     cap_add:
-      - SYS_MODULE
       - NET_ADMIN
-      - NET_RAW
-      - NET_BROADCAST
-    privileged: true
     sysctls:
       - net.ipv4.ip_nonlocal_bind=1
     networks:
@@ -192,61 +209,57 @@ services:
       - ./sftp/conf/keepalived_server_b.conf:/etc/keepalived/keepalived.conf
     restart: unless-stopped
     cap_add:
-      - SYS_MODULE
       - NET_ADMIN
-      - NET_RAW
-      - NET_BROADCAST
-    privileged: true
     sysctls:
       - net.ipv4.ip_nonlocal_bind=1
     networks:
       infra_lab:
         ipv4_address: 192.168.20.18
-# Contenedor Jenkins 
-  jenkins:
-    container_name: JENKINS
-    hostname: jenkins.local
-    build:
-      context: ./jenkins
-    ports:
-      - '9090:8080'
-    volumes:
-      - ./jenkins/jenkins_home:/var/jenkins_home
-    networks:
-      infra_lab:
-        ipv4_address: 192.168.20.20
-# Contenedor VPN
-  vpn:
-    container_name: VPN
-    hostname: vpn.local
-    image: kylemanna/openvpn:2.4
-    cap_add:
-      - NET_ADMIN
-    ports:
-     - 1194:1194/udp
-    volumes:
-      - ./vpn:/etc/openvpn
-    restart: unless-stopped
-    networks:
-      infra_lab:
-        ipv4_address: 192.168.20.21
-  # Gestor visual de Base de Datos
-  phpmyadmin:
-    container_name: GESTOR_BASE_DATOS
-    image: phpmyadmin/phpmyadmin:latest
-    hostname: phpmyadmin.local
-    ports:
-      - 8080:80
-    depends_on: 
-      - db
-    volumes: 
-        - ./php/phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
-        - ./php/phpmyadmin/sessions/:/sessions/
-    env_file: ./.env
-    restart: unless-stopped
-    networks:
-      infra_lab:
-        ipv4_address: 192.168.20.50
+# # Contenedor Jenkins 
+#   jenkins:
+#     container_name: JENKINS
+#     hostname: jenkins.local
+#     build:
+#       context: ./jenkins
+#     ports:
+#       - '9090:8080'
+#     volumes:
+#       - ./jenkins/jenkins_home:/var/jenkins_home
+#     networks:
+#       infra_lab:
+#         ipv4_address: 192.168.20.20
+# # Contenedor VPN
+#   vpn:
+#     container_name: VPN
+#     hostname: vpn.local
+#     image: kylemanna/openvpn:2.4
+#     cap_add:
+#       - NET_ADMIN
+#     ports:
+#      - 1194:1194/udp
+#     volumes:
+#       - ./vpn:/etc/openvpn
+#     restart: unless-stopped
+#     networks:
+#       infra_lab:
+#         ipv4_address: 192.168.20.21
+#   # Gestor visual de Base de Datos
+#   phpmyadmin:
+#     container_name: GESTOR_BASE_DATOS
+#     image: phpmyadmin/phpmyadmin:latest
+#     hostname: phpmyadmin.local
+#     ports:
+#       - 8080:80
+#     depends_on: 
+#       - db
+#     volumes: 
+#         - ./php/conf/gestor/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
+#         - ./php/conf/gestor/sessions/:/sessions/
+#     env_file: ./.env
+#     restart: unless-stopped
+#     networks:
+#       infra_lab:
+#         ipv4_address: 192.168.20.50
 
 networks:
   infra_lab:
