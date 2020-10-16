@@ -119,7 +119,8 @@ services:
     hostname: trackmongo.local
     image: mongo:latest
     volumes:
-      - ./mongo:/data
+      - ./mongo/conf:/etc/mongo
+      - ./mongo/data:/data
     env_file: ./.env
     restart: unless-stopped
     networks:

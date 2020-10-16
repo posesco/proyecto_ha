@@ -1,3 +1,7 @@
+# Contenedor efimero para traer libreria con composer
+FROM composer:latest as librerias
+RUN composer require spipu/html2pdf
+# Contenedor final con solo librerias importadas
 FROM php:7.4-fpm
 # Instalacion de paquetes necesarios
 RUN apt-get update \
@@ -33,6 +37,7 @@ RUN curl -L -o redis.tar.gz https://github.com/phpredis/phpredis/archive/5.3.1.t
     && docker-php-ext-enable mongodb \
     && sed -i 's/^\(module.*imklog.*\)/# \1/g' /etc/rsyslog.conf \
     && apt-get autoremove -y
+COPY --from=librerias /app /tmp    
 # Rutina que activa procesos para ip flotante
 COPY ./entrypoint.sh /entrypoint.sh
 ENTRYPOINT [ "/entrypoint.sh" ]

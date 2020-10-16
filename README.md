@@ -33,3 +33,9 @@ Configuracion de sshd_config
     AuthorizedKeysFile .ssh/authorized_keys
     PasswordAuthentication yes
     PermitRootLogin yes
+
+
+
+MONGO_INITDB_ROOT_USERNAME=root
+MONGO_INITDB_ROOT_PASSWORD=kv5OmlgW7@J4
+MONGO_INITDB_DATABASE=tracking

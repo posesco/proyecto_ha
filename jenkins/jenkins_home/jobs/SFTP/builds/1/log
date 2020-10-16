@@ -1,0 +1,27 @@
+Started by user [8mha:////4HDmrJVlrcaVvVJjHyWfRniohD1297VEWCdmcYUYKvK0AAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAyeEgZu/dLi1CL9xJTczDwA4LbuW8AAAAA=[0mJesus Posada
+Running as SYSTEM
+Building in workspace /var/jenkins_home/workspace/SFTP
+[Checks API] No suitable checks publisher found.
+[SSH] script:
+
+ps aux
+
+[SSH] executing...
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1  0.0  0.0   2388   760 ?        Ss   16:24   0:00 /bin/sh -c tail -f /entrypoint.sh
+root        27  0.0  0.0  15852  4332 ?        Ss   16:24   0:00 /usr/sbin/sshd
+root        33  0.0  0.0  39968  3352 ?        Ss   16:24   0:00 /usr/sbin/keepalived
+root        34  0.0  0.0  39968  3124 ?        S    16:24   0:10 /usr/sbin/keepalived
+root        41  0.0  0.0   4496  2060 ?        SNs  16:24   0:00 /usr/bin/lsyncd -pidfile /var/run/lsyncd.pid /etc/lsyncd/lsyncd.conf.lua
+root        52  0.0  0.0 156152  2328 ?        Ssl  16:24   0:04 /usr/sbin/rsyslogd
+root        56  0.0  0.0   2328   740 ?        S    16:24   0:01 tail -f /entrypoint.sh
+root       396  0.0  0.0  16500  7736 ?        Ss   19:28   0:00 sshd: remote_user [priv]
+remote_+   402  0.0  0.0  16784  5048 ?        S    19:28   0:00 sshd: remote_user@notty
+remote_+   403  0.0  0.0   2388   756 ?        Ss   19:28   0:00 sh -c  ps aux
+remote_+   404  0.0  0.0   7640  2712 ?        R    19:28   0:00 ps aux
+
+[SSH] completed
+[SSH] exit-status: 0
+
+[Checks API] No suitable checks publisher found.
+Finished: SUCCESS
