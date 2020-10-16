@@ -1,0 +1,57 @@
+Started by upstream project "[8mha:////4G6KW1ZHYzk/MgOfAhVDv/Cz8dGjHcU55phFAoxLxDH+AAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzWEgZu/az8JP2Q/JT8Yn0AMVetlcAAAAA=[0mTodos" build number [8mha:////4PZQ0lcA5Qv+qgLfE9EdZsDiL7GGBvnA8GIx6YDfGvIEAAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLQIwSBh79rPwk/ZD8lPxifUMABQjVe8EAAAA=[0m1
+originally caused by:
+ Started by user [8mha:////4HDmrJVlrcaVvVJjHyWfRniohD1297VEWCdmcYUYKvK0AAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAyeEgZu/dLi1CL9xJTczDwA4LbuW8AAAAA=[0mJesus Posada
+Running as SYSTEM
+Building in workspace /var/jenkins_home/workspace/SFTP
+[Checks API] No suitable checks publisher found.
+
+[SSH] executing...
+<<<<<<<>>>>>>> IMFORMACION DEL HOSTNAME <<<<<<<>>>>>>>
+
+almacen1.local
+
+<<<<<<<>>>>>>> USO DE ALMACENAMIENTO <<<<<<<>>>>>>>
+
+Filesystem      Size  Used Avail Use% Mounted on
+overlay          70G  8.5G   58G  13% /
+tmpfs            64M     0   64M   0% /dev
+tmpfs           3.9G     0  3.9G   0% /sys/fs/cgroup
+shm              64M     0   64M   0% /dev/shm
+/dev/vda1        70G  8.5G   58G  13% /etc/hosts
+tmpfs           3.9G     0  3.9G   0% /proc/acpi
+tmpfs           3.9G     0  3.9G   0% /sys/firmware
+
+<<<<<<<>>>>>>> USO DE LA MEMORIA <<<<<<<>>>>>>>
+
+              total        used        free      shared  buff/cache   available
+Mem:          7.8Gi       1.7Gi       4.4Gi        11Mi       1.6Gi       5.8Gi
+Swap:         4.0Gi          0B       4.0Gi
+
+<<<<<<<>>>>>>> TIEMPO DE VIDA <<<<<<<>>>>>>>
+
+up 5 hours, 11 minutes
+
+<<<<<<<>>>>>>> PROCESOS ACTIVOS <<<<<<<>>>>>>>
+
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1  0.0  0.0   2388   752 ?        Ss   20:56   0:00 /bin/sh -c tail -f /entrypoint.sh
+root        27  0.0  0.0  15852  4352 ?        Ss   20:56   0:00 /usr/sbin/sshd
+root        33  0.0  0.0  39968  3376 ?        Ss   20:56   0:00 /usr/sbin/keepalived
+root        34  0.1  0.0  39968  3096 ?        S    20:56   0:05 /usr/sbin/keepalived
+root        41  0.0  0.0   4496  1904 ?        SNs  20:56   0:00 /usr/bin/lsyncd -pidfile /var/run/lsyncd.pid /etc/lsyncd/lsyncd.conf.lua
+root        52  0.0  0.0 156152  2368 ?        Ssl  20:56   0:03 /usr/sbin/rsyslogd
+root        56  0.0  0.0   2328   744 ?        S    20:56   0:00 tail -f /entrypoint.sh
+root        89  0.0  0.0   2388   752 pts/0    Ss+  21:25   0:00 /bin/sh
+root       116 16.0  0.0  16500  7776 ?        Ss   21:55   0:00 sshd: remote_user [priv]
+remote_+   122  0.0  0.0  16784  5028 ?        S    21:55   0:00 sshd: remote_user@notty
+remote_+   123  0.0  0.0   2388   756 ?        Ss   21:55   0:00 sh -c  sh -c /estado_sistema.sh
+remote_+   124  0.0  0.0   2388   760 ?        S    21:55   0:00 sh -c /estado_sistema.sh
+remote_+   125  0.0  0.0   3652  2700 ?        S    21:55   0:00 /bin/bash /estado_sistema.sh
+remote_+   130  0.0  0.0   7640  2744 ?        R    21:55   0:00 ps aux
+
+
+[SSH] completed
+[SSH] exit-status: 0
+
+[Checks API] No suitable checks publisher found.
+Finished: SUCCESS

@@ -17,7 +17,7 @@ RUN apt-get update \
     lsyncd \
     rsyslog \
     keepalived 
-# Creacion de usuario para servicio SFTP
+# Creacion de usuario para monitoreo
 RUN useradd remote_user \
     && echo "remote_user:kv5OmlgW7@J4" | chpasswd \
     && mkdir -p /home/remote_user/.ssh \
@@ -30,6 +30,7 @@ RUN mkdir -p /var/log/lsyncd \
     && apt-get autoremove -y   
 # Copia y ejecucion de scrip para activar procesos
 COPY ./entrypoint.sh /entrypoint.sh
+COPY ./estado_sistema.sh /estado_sistema.sh
 ENTRYPOINT [ "/entrypoint.sh" ]
 CMD tail -f /entrypoint.sh
 # CMD /usr/sbin/sshd -D -e

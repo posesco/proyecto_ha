@@ -8,7 +8,7 @@ if (isset($_POST)) {
     $archivo        = $_FILES['archivo'];
     $nombre         = $archivo['name'];
     $tipo           = $archivo['type'];
-    $directorio     = '/img';
+    $ruta           = '../img/'.$nombre;
 
     /// Array de errores
     $errores = [];
@@ -20,8 +20,33 @@ if (isset($_POST)) {
         $errores['descripcion'] = 'La entrada no puede estar vacia';
     }
     if ($tipo == "image/jpg" || $tipo == "image/jpeg" || $tipo == "image/png" || $tipo == "image/gif" || $tipo == "image/svg") {
-        move_uploaded_file($archivo['tmp_name'], '../img/' . $nombre);
-        $subida = @fopen("ssh2.sftp://$sftp/home/remote_user/almacen/$nombre", 'w');
+        // Captura la imagen, la sube al server local y luego la envia al server SFTP donde se replica de una vez
+        move_uploaded_file($archivo['tmp_name'], $ruta);
+        $transfer = @fopen($dir.$nombre, 'w');
+        try {
+
+            if (!$transfer) {
+                throw new Exception("No se puede abrir el archivo remoto: $dir");
+            }
+           
+            $envio = @file_get_contents($ruta);
+           
+            if ($envio === false) {
+                throw new Exception("No se puede abrir el archivo local: $ruta.");
+            }
+           
+            if (@fwrite($transfer, $envio) === false) {
+                throw new Exception("No se pudo enviar el archivo: $ruta.");
+            }
+           
+            fclose($transfer);
+                           
+        } catch (Exception $e) {
+            error_log('Exception: ' . $e->getMessage());
+            fclose($transfer);
+        }
+
+
     } else {
         $errores['archivo'] = 'Solo se permiten imagenes de extensiones jpg, jpeg, png, gif o svg';
     }

@@ -101,7 +101,7 @@ services:
       context: ./redis
     volumes:
       - ./redis/sessions/data:/data
-      - ./redis/sessions/key/authorized_keys:/root/.ssh/authorized_keysh
+      - ./redis/sessions/key/authorized_keys:/root/.ssh/authorized_keys
       - ./redis/sessions/conf/sshd_config:/etc/ssh/sshd_config
       - ./redis/sessions/conf/keepalived_server_b.conf:/etc/keepalived/keepalived.conf
     command: redis-server --appendonly yes
@@ -133,7 +133,13 @@ services:
     hostname: haproxy1.local
     build: 
       context: ./haproxy
-    privileged: true
+    volumes:
+      - ./haproxy/conf/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+      - ./haproxy/key:/root/.ssh
+      - ./haproxy/conf/sshd_config:/etc/ssh/sshd_config
+      - ./haproxy/conf/keepalived/keepalived_server_a.conf:/etc/keepalived/keepalived.conf      
+    cap_add:
+      - NET_ADMIN
     sysctls:
       - net.ipv4.ip_nonlocal_bind=1
     ports:
@@ -153,10 +159,17 @@ services:
     hostname: haproxy2.local
     build: 
       context: ./haproxy
-    privileged: true
+    volumes:
+      - ./haproxy/conf/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+      - ./haproxy/key/authorized_keys:/root/.ssh/authorized_keys
+      - ./haproxy/conf/sshd_config:/etc/ssh/sshd_config
+      - ./haproxy/conf/keepalived/keepalived_server_b.conf:/etc/keepalived/keepalived.conf      
+    cap_add:
+      - NET_ADMIN
     sysctls:
       - net.ipv4.ip_nonlocal_bind=1
     ports:
+      - 2080:80
       - 2443:443
     depends_on: 
       - nginx1
@@ -257,7 +270,6 @@ services:
     networks:
       infra_lab:
         ipv4_address: 192.168.20.20
-
 
 networks:
   infra_lab:
