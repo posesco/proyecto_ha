@@ -20,8 +20,8 @@
         case '/index.php?eliminar_entrada':
             require_once 'views/eliminar_entrada.php';
             break;
-        case '/index.php?sesiones':
-            require_once 'views/sesiones.php';
+        case '/index.php?actividad':
+            require_once 'views/actividad.php';
             break;
         default:
             require_once 'views/cuerpo.php';

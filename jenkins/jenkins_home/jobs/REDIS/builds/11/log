@@ -1,0 +1,55 @@
+Started by upstream project "[8mha:////4G6KW1ZHYzk/MgOfAhVDv/Cz8dGjHcU55phFAoxLxDH+AAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzWEgZu/az8JP2Q/JT8Yn0AMVetlcAAAAA=[0mTodos" build number [8mha:////4D6c0/IcS2MMZPll+vGNTXYptmkYemHRokprOw5iq3E+AAAAmR+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAymEgZe/az8JP2Q/JT8Yn1DAwBURF9KwgAAAA==[0m10
+originally caused by:
+ Started by user [8mha:////4HDmrJVlrcaVvVJjHyWfRniohD1297VEWCdmcYUYKvK0AAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAyeEgZu/dLi1CL9xJTczDwA4LbuW8AAAAA=[0mJesus Posada
+Running as SYSTEM
+Building in workspace /var/jenkins_home/workspace/REDIS
+[Checks API] No suitable checks publisher found.
+
+[SSH] executing...
+<<<<<<<>>>>>>> IMFORMACION DEL HOSTNAME <<<<<<<>>>>>>>
+
+sesiones2.local
+
+<<<<<<<>>>>>>> USO DE ALMACENAMIENTO <<<<<<<>>>>>>>
+
+Filesystem      Size  Used Avail Use% Mounted on
+overlay          70G  8.5G   58G  13% /
+tmpfs            64M     0   64M   0% /dev
+tmpfs           3.9G     0  3.9G   0% /sys/fs/cgroup
+shm              64M     0   64M   0% /dev/shm
+osxfs           113G   34G   66G  34% /data
+/dev/vda1        70G  8.5G   58G  13% /etc/hosts
+tmpfs           3.9G     0  3.9G   0% /proc/acpi
+tmpfs           3.9G     0  3.9G   0% /sys/firmware
+
+<<<<<<<>>>>>>> USO DE LA MEMORIA <<<<<<<>>>>>>>
+
+              total        used        free      shared  buff/cache   available
+Mem:          7.8Gi       1.7Gi       5.3Gi        11Mi       887Mi       5.9Gi
+Swap:         4.0Gi          0B       4.0Gi
+
+<<<<<<<>>>>>>> TIEMPO DE VIDA <<<<<<<>>>>>>>
+
+up 5 hours, 4 minutes
+
+<<<<<<<>>>>>>> PROCESOS ACTIVOS <<<<<<<>>>>>>>
+
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1  0.5  0.0 128580  7384 ?        Ssl  12:24   1:41 redis-server *:6379
+root        20  0.0  0.0  39968  3472 ?        Ss   12:24   0:00 /usr/sbin/keepalived
+root        21  0.1  0.0  39968  3124 ?        S    12:24   0:19 /usr/sbin/keepalived
+root        30  0.0  0.0  15852  4188 ?        Ss   12:24   0:00 /usr/sbin/sshd
+root        39  0.0  0.0 156152  2260 ?        Ssl  12:24   0:09 /usr/sbin/rsyslogd
+root        94 12.0  0.0  16552  7900 ?        Ss   17:28   0:00 sshd: remote_user [priv]
+remote_+   100  0.0  0.0  16836  5168 ?        S    17:28   0:00 sshd: remote_user@notty
+remote_+   101  0.0  0.0   2388   760 ?        Ss   17:28   0:00 sh -c  sh -c /estado_sistema.sh
+remote_+   102  0.0  0.0   2388   692 ?        S    17:28   0:00 sh -c /estado_sistema.sh
+remote_+   103  0.0  0.0   3652  2684 ?        S    17:28   0:00 /bin/bash /estado_sistema.sh
+remote_+   108  0.0  0.0   7640  2684 ?        R    17:28   0:00 ps aux
+
+
+[SSH] completed
+[SSH] exit-status: 0
+
+[Checks API] No suitable checks publisher found.
+Finished: SUCCESS

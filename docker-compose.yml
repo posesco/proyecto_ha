@@ -63,10 +63,8 @@ services:
     container_name: REDIS_CACHE_MYSQL
     hostname: cachemysql.local
     image: redis:latest
-    # ports:
-    #   - "6379:6379"
     volumes:
-      - ./redis/cache:/data
+      - ./redis_cache:/data
     command: redis-server --appendonly yes
     restart: unless-stopped
     networks:
@@ -78,12 +76,12 @@ services:
     container_name: REDIS_CACHE_SESIONES_1
     hostname: sesiones1.local
     build: 
-      context: ./redis
+      context: ./redis_sesiones
     volumes:
-      - ./redis/sessions/data:/data
-      - ./redis/sessions/key:/root/.ssh
-      - ./redis/sessions/conf/sshd_config:/etc/ssh/sshd_config
-      - ./redis/sessions/conf/keepalived_server_a.conf:/etc/keepalived/keepalived.conf
+      - ./redis_sesiones/data:/data
+      - ./redis_sesiones/key:/root/.ssh
+      - ./redis_sesiones/conf/sshd_config:/etc/ssh/sshd_config
+      - ./redis_sesiones/conf/keepalived_server_a.conf:/etc/keepalived/keepalived.conf
     command: redis-server --appendonly yes
     restart: unless-stopped
     cap_add:
@@ -98,12 +96,12 @@ services:
     container_name: REDIS_CACHE_SESIONES_2
     hostname: sesiones2.local
     build: 
-      context: ./redis
+      context: ./redis_sesiones
     volumes:
-      - ./redis/sessions/data:/data
-      - ./redis/sessions/key/authorized_keys:/root/.ssh/authorized_keys
-      - ./redis/sessions/conf/sshd_config:/etc/ssh/sshd_config
-      - ./redis/sessions/conf/keepalived_server_b.conf:/etc/keepalived/keepalived.conf
+      - ./redis_sesiones/data:/data
+      - ./redis_sesiones/key/authorized_keys:/root/.ssh/authorized_keys
+      - ./redis_sesiones/conf/sshd_config:/etc/ssh/sshd_config
+      - ./redis_sesiones/conf/keepalived_server_b.conf:/etc/keepalived/keepalived.conf
     command: redis-server --appendonly yes
     restart: unless-stopped
     cap_add:
@@ -219,17 +217,17 @@ services:
       infra_lab:
         ipv4_address: 192.168.20.16
 # Contenedores SFTP ip Flotante <<<<<< 192.168.20.19 >>>>>>>
-  sftp1:
-    container_name: ALMACEN_SFTP_1
+  ssh_files1:
+    container_name: ALMACEN_FILES_1
     hostname: almacen1.local
     build:
-      context: ./sftp
+      context: ./ssh_files
     volumes:
-      - ./sftp/key:/root/.ssh
-      - ./sftp/conf/sshd_config:/etc/ssh/sshd_config
-      - ./sftp/conf/lsyncd.conf.lua:/etc/lsyncd/lsyncd.conf.lua
-      - ./sftp/storage_a:/home/remote_user/almacen
-      - ./sftp/conf/keepalived_server_a.conf:/etc/keepalived/keepalived.conf
+      - ./ssh_files/key:/root/.ssh
+      - ./ssh_files/conf/sshd_config:/etc/ssh/sshd_config
+      - ./ssh_files/conf/lsyncd.conf.lua:/etc/lsyncd/lsyncd.conf.lua
+      - ./ssh_files/storage_a:/home/remote_user/almacen
+      - ./ssh_files/conf/keepalived_server_a.conf:/etc/keepalived/keepalived.conf
     restart: unless-stopped
     cap_add:
       - NET_ADMIN
@@ -239,16 +237,16 @@ services:
       infra_lab:
         ipv4_address: 192.168.20.17
 
-  sftp2:
-    container_name: ALMACEN_SFTP_2
+  ssh_files2:
+    container_name: ALMACEN_FILES_2
     hostname: almacen2.local
     build:
-      context: ./sftp
+      context: ./ssh_files
     volumes:
-      - ./sftp/conf/sshd_config:/etc/ssh/sshd_config
-      - ./sftp/storage_b:/home/remote_user/almacen
-      - ./sftp/key/authorized_keys:/root/.ssh/authorized_keys
-      - ./sftp/conf/keepalived_server_b.conf:/etc/keepalived/keepalived.conf
+      - ./ssh_files/conf/sshd_config:/etc/ssh/sshd_config
+      - ./ssh_files/storage_b:/home/remote_user/almacen
+      - ./ssh_files/key/authorized_keys:/root/.ssh/authorized_keys
+      - ./ssh_files/conf/keepalived_server_b.conf:/etc/keepalived/keepalived.conf
     restart: unless-stopped
     cap_add:
       - NET_ADMIN
@@ -261,8 +259,7 @@ services:
   jenkins:
     container_name: JENKINS
     hostname: jenkins.local
-    build:
-      context: ./jenkins
+    image: jenkins/jenkins:latest
     ports:
       - '8080:8080'
     volumes:

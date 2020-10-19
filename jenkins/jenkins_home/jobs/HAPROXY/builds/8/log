@@ -1,0 +1,56 @@
+Started by upstream project "[8mha:////4G6KW1ZHYzk/MgOfAhVDv/Cz8dGjHcU55phFAoxLxDH+AAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzWEgZu/az8JP2Q/JT8Yn0AMVetlcAAAAA=[0mTodos" build number [8mha:////4NW1DHbGYAQYxWi57OH3SVK0/wkPn6bXI8Lkc+MBhSZMAAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLQIwSBh79rPwk/ZD8lPxifXMAMK22ksEAAAA=[0m7
+originally caused by:
+ Started by user [8mha:////4HDmrJVlrcaVvVJjHyWfRniohD1297VEWCdmcYUYKvK0AAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAyeEgZu/dLi1CL9xJTczDwA4LbuW8AAAAA=[0mJesus Posada
+Running as SYSTEM
+Building in workspace /var/jenkins_home/workspace/HAPROXY
+[Checks API] No suitable checks publisher found.
+
+[SSH] executing...
+<<<<<<<>>>>>>> IMFORMACION DEL HOSTNAME <<<<<<<>>>>>>>
+
+haproxy1.local
+
+<<<<<<<>>>>>>> USO DE ALMACENAMIENTO <<<<<<<>>>>>>>
+
+Filesystem      Size  Used Avail Use% Mounted on
+overlay          70G  8.5G   58G  13% /
+tmpfs            64M     0   64M   0% /dev
+tmpfs           3.9G     0  3.9G   0% /sys/fs/cgroup
+shm              64M     0   64M   0% /dev/shm
+/dev/vda1        70G  8.5G   58G  13% /etc/hosts
+tmpfs           3.9G     0  3.9G   0% /proc/acpi
+tmpfs           3.9G     0  3.9G   0% /sys/firmware
+
+<<<<<<<>>>>>>> USO DE LA MEMORIA <<<<<<<>>>>>>>
+
+              total        used        free      shared  buff/cache   available
+Mem:          7.8Gi       1.6Gi       5.3Gi        11Mi       827Mi       5.9Gi
+Swap:         4.0Gi          0B       4.0Gi
+
+<<<<<<<>>>>>>> TIEMPO DE VIDA <<<<<<<>>>>>>>
+
+up 33 minutes
+
+<<<<<<<>>>>>>> PROCESOS ACTIVOS <<<<<<<>>>>>>>
+
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1  0.0  0.0   2388   756 ?        Ss   12:24   0:00 /bin/sh -c tail -f /entrypoint.sh
+root        23  0.0  0.0  39968  3592 ?        Ss   12:24   0:00 /usr/sbin/keepalived
+root        24  0.1  0.0  40252  5844 ?        S    12:24   0:02 /usr/sbin/keepalived
+root        34  0.0  0.0  15852  3040 ?        Ss   12:24   0:00 /usr/sbin/sshd
+root        43  0.0  0.0 156152  2312 ?        Ssl  12:24   0:01 /usr/sbin/rsyslogd
+root        50  0.1  0.8 357436 73020 ?        Ssl  12:24   0:02 haproxy -f /usr/local/etc/haproxy/haproxy.cfg
+root        51  0.0  0.0   2328   680 ?        S    12:24   0:00 tail -f /entrypoint.sh
+root      1034  0.0  0.0  16552  7624 ?        Ss   12:57   0:00 sshd: remote_user [priv]
+remote_+  1040  0.0  0.0  16836  4892 ?        S    12:57   0:00 sshd: remote_user@notty
+remote_+  1041  0.0  0.0   2388   760 ?        Ss   12:57   0:00 sh -c  sh -c /estado_sistema.sh
+remote_+  1042  0.0  0.0   2388   696 ?        S    12:57   0:00 sh -c /estado_sistema.sh
+remote_+  1043  0.0  0.0   3652  2736 ?        S    12:57   0:00 /bin/bash /estado_sistema.sh
+remote_+  1048  0.0  0.0   7640  2712 ?        R    12:57   0:00 ps aux
+
+
+[SSH] completed
+[SSH] exit-status: 0
+
+[Checks API] No suitable checks publisher found.
+Finished: SUCCESS

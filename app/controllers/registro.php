@@ -2,7 +2,7 @@
 if (isset($_POST)) {
     // Cargar conexion a DB
     require_once '../includes/mysql.php';
-    require_once '../includes/helpers.php';
+    require_once '../controllers/helpers.php';
     // Inicio de Sesion
     $user     = isset ($_POST['user']) ? mysqli_real_escape_string ($db, $_POST['user']) : false ;
     $correo     = isset ($_POST['email']) ? mysqli_real_escape_string ($db, $_POST['email']) : false ;

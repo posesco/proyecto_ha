@@ -15,7 +15,6 @@ RUN useradd remote_user \
     && chown -Rf remote_user:remote_user /home/remote_user \
     && service ssh start
 COPY ./ssl /etc/ssl
-EXPOSE 80 443
 COPY ./entrypoint.sh /entrypoint.sh
 COPY ./estado_sistema.sh /estado_sistema.sh
 ENTRYPOINT [ "/entrypoint.sh" ]

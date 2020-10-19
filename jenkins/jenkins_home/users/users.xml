@@ -6,5 +6,9 @@
       <string>admin</string>
       <string>admin_4074447842497929215</string>
     </entry>
+    <entry>
+      <string>ejecuciones</string>
+      <string>ejecuciones_1548428743960767959</string>
+    </entry>
   </idToDirectoryNameMap>
 </hudson.model.UserIdMapper>

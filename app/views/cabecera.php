@@ -3,7 +3,10 @@ require_once 'includes/mysql.php';
 require_once 'includes/redis.php';
 require_once 'includes/mongo.php';
 require_once 'includes/sftp.php';
-require_once 'includes/helpers.php';
+require_once 'controllers/helpers.php';
+if (isset($_SESSION['usuario'])) {
+    $redis_cache->lpush($_SESSION['usuario']['usuario'], $_SERVER['REQUEST_URI']);
+}
 ?>
 <div class="info-cabeza">
     <h1>Informacion del Sistema</h1>
@@ -36,17 +39,8 @@ require_once 'includes/helpers.php';
             <td></td>
             <td>
                 <?php
-                echo '<strong>Version Server Mongo: </strong>';
-                echo '<br>';
                 echo '<strong>Version Cliente PhpMongo: </strong>'. phpversion('mongodb');
                 echo '<br>';
-                if ($redis->ping()==1) {
-                    echo '<strong>Estado Redis: </strong>'.'OK';  
-                }else {
-                    echo '<strong>Estado Redis: </strong>'.'Fallo'; 
-                }
-                echo '<br>';
-                echo '<strong>Estado Mongo: </strong>';
                 ?>
             </td>
         </tr>
