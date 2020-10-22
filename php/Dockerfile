@@ -1,14 +1,11 @@
 FROM php:7.4-fpm
 # Instalacion de paquetes necesarios
 RUN apt-get update \
-    && apt-get upgrade -y \
     && apt-get install -y \
     libfreetype6-dev \
     libjpeg62-turbo-dev \ 
     libssh2-1-dev \
-    openssh-client \
     openssh-server \
-    rsyslog \
     keepalived \
     && docker-php-ext-install -j$(nproc) iconv \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
@@ -30,9 +27,7 @@ RUN curl -L -o redis.tar.gz https://github.com/phpredis/phpredis/archive/5.3.1.t
     && docker-php-ext-enable mysqli \
     && docker-php-ext-enable redis \
     && docker-php-ext-enable ssh2 \
-    && docker-php-ext-enable mongodb \
-    && sed -i 's/^\(module.*imklog.*\)/# \1/g' /etc/rsyslog.conf \
-    && apt-get autoremove -y
+    && docker-php-ext-enable mongodb
 # Rutina que activa procesos para ip flotante
 # Creacion de usuario para monitoreo
 RUN useradd remote_user \
@@ -42,6 +37,5 @@ RUN useradd remote_user \
     && chown -Rf remote_user:remote_user /home/remote_user \
     && service ssh start
 COPY ./entrypoint.sh /entrypoint.sh
-COPY ./estado_sistema.sh /estado_sistema.sh
 ENTRYPOINT [ "/entrypoint.sh" ]
 CMD ["php-fpm"]

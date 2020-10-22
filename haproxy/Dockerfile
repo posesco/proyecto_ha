@@ -1,12 +1,8 @@
-FROM haproxy:latest
+FROM haproxy:2.3-dev
 RUN apt-get update \
-    && apt-get upgrade -y \
     && apt-get install -y \
-    openssh-client \
     openssh-server \
-    rsyslog \
-    keepalived \
-    && sed -i 's/^\(module.*imklog.*\)/# \1/g' /etc/rsyslog.conf
+    keepalived
 # Creacion de usuario para monitoreo
 RUN useradd remote_user \
     && echo "remote_user:kv5OmlgW7@J4" | chpasswd \
@@ -16,6 +12,5 @@ RUN useradd remote_user \
     && service ssh start
 COPY ./ssl /etc/ssl
 COPY ./entrypoint.sh /entrypoint.sh
-COPY ./estado_sistema.sh /estado_sistema.sh
 ENTRYPOINT [ "/entrypoint.sh" ]
-CMD tail -f /entrypoint.sh
+CMD tail -f entrypoint.sh

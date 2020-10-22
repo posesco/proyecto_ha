@@ -9,7 +9,7 @@ services:
     build:
       context: ./php
     volumes:
-      - ./app:/srv/www/app
+      - ./app:/var/www/app
       - ./php/key:/root/.ssh
       - ./php/conf/sshd_config:/etc/ssh/sshd_config
       - ./php/conf/www.conf:/usr/local/etc/php-fpm.d/www.conf
@@ -31,7 +31,7 @@ services:
     build:
       context: ./php
     volumes:
-      - ./app:/srv/www/app
+      - ./app:/var/www/app
       - ./php/key/authorized_keys:/root/.ssh/authorized_keys
       - ./php/conf/sshd_config:/etc/ssh/sshd_config
       - ./php/conf/www.conf:/usr/local/etc/php-fpm.d/www.conf
@@ -49,7 +49,7 @@ services:
   # Contenedor Base de Datos SQL
   db:
     container_name: DB_SQL
-    image: mariadb:latest
+    image: mariadb:10
     hostname: basedatos.local
     volumes: 
         - ./mariadb/db:/var/lib/mysql 
@@ -62,7 +62,7 @@ services:
   redis:
     container_name: REDIS_CACHE_MYSQL
     hostname: cachemysql.local
-    image: redis:latest
+    image: redis:6
     volumes:
       - ./redis_cache:/data
     command: redis-server --appendonly yes
@@ -181,10 +181,9 @@ services:
   nginx1: 
     container_name: NGINX_1
     hostname: web1.local
-    build: 
-      context: ./nginx
+    image: nginx:1.19
     volumes:
-      - ./app:/srv/www/app
+      - ./app:/var/www/app
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
     restart: unless-stopped
     networks:
@@ -194,10 +193,9 @@ services:
   nginx2: 
     container_name: NGINX_2
     hostname: web2.local
-    build: 
-      context: ./nginx
+    image: nginx:1.19
     volumes:
-      - ./app:/srv/www/app
+      - ./app:/var/www/app
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
     restart: unless-stopped
     networks:
@@ -207,10 +205,9 @@ services:
   nginx3: 
     container_name: NGINX_3
     hostname: web3.local
-    build: 
-      context: ./nginx
+    image: nginx:1.19
     volumes:
-      - ./app:/srv/www/app
+      - ./app:/var/www/app
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
     restart: unless-stopped
     networks:

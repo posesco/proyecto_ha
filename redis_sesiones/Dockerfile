@@ -1,16 +1,9 @@
-FROM redis:latest
+FROM redis:6
 # Instalacion de paquetes necesarios
 RUN apt-get update \
-    && apt-get upgrade -y \
-    && apt-get install -y \
-    libfreetype6-dev \
-    libjpeg62-turbo-dev \ 
-    openssh-client \
+    && apt-get install -y \ 
     openssh-server \
-    rsyslog \
     keepalived
-RUN sed -i 's/^\(module.*imklog.*\)/# \1/g' /etc/rsyslog.conf \
-    && apt-get autoremove -y 
 # Creacion de usuario para monitoreo
 RUN useradd remote_user \
     && echo "remote_user:kv5OmlgW7@J4" | chpasswd \

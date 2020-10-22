@@ -22,12 +22,4 @@ else
 echo "SSH activo!!"
 fi
 
-if [[ "$logs" -eq 1 ]]
-then
-echo "Activando Ip rsyslog..."
-service rsyslog start
-else
-echo "Rsyslog activo!!"
-fi
-
 exec "$@"
