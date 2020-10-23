@@ -1,4 +1,4 @@
-FROM debian:buster
+FROM debian:latest
 # Actualizacion e instalacion de paquetes
 RUN apt-get update \
     && apt-get install -y \
@@ -13,8 +13,8 @@ RUN useradd remote_user \
     && chown -Rf remote_user:remote_user /home/remote_user \
     && service ssh start
 # Habilita logs de lsyncd
-RUN mkdir -p /var/log/lsyncd \
+RUN mkdir -p /var/log/lsyncd
 # Copia y ejecucion de scrip para activar procesos
 COPY ./entrypoint.sh /entrypoint.sh
 ENTRYPOINT [ "/entrypoint.sh" ]
-CMD tail -f /entrypoint.sh
+CMD /usr/sbin/sshd -D -e

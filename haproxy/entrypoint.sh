@@ -4,7 +4,6 @@ set -e
 
 ipflotante=`ps aux | grep -c keepalived`
 remoto=`ps aux | grep -c ssh`
-logs=`ps aux | grep -c rsyslog`
 haproxy=`ps aux | grep -c haproxy`
 
 if [[ "$ipflotante" -eq 1 ]]
@@ -30,6 +29,5 @@ haproxy -f /usr/local/etc/haproxy/haproxy.cfg
 else
 echo "Haproxy activo!!"
 fi
-
 
 exec "$@"

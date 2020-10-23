@@ -4,7 +4,6 @@ set -e
 
 ipflotante=`ps aux | grep -c keepalived`
 espejo=`ps aux | grep -c lsyncd`
-logs=`ps aux | grep -c rsyslog`
 remoto=`ps aux | grep -c ssh`
 
 if [[ "$remoto" -eq 1 ]]
@@ -30,6 +29,5 @@ service lsyncd start
 else
 echo "Replicacion activa!!"
 fi
-
 
 exec "$@"

@@ -26,6 +26,9 @@
             <li>
                 <a href="http://localhost:8080" target="_blank">Jenkins</a>
             </li>
+            <li>
+                <a href="https://jesusvpn.duckdns.org:943/admin" target="_blank">VPN</a>
+            </li>
             <?php endif ?>
             <li>
                 <a href="controllers/cerrar_sesion.php">Cerrar Sesion</a>

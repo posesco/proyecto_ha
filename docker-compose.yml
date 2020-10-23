@@ -114,8 +114,8 @@ services:
   # Contenedor Base de Datos Mongo    
   mongo:
     container_name: DB_MONGO
-    hostname: trackmongo.local
-    image: mongo:latest
+    hostname: mongo.local
+    image: mongo:4
     volumes:
       - ./mongo/conf:/etc/mongo
       - ./mongo/data:/data
@@ -252,6 +252,45 @@ services:
     networks:
       infra_lab:
         ipv4_address: 192.168.20.18
+# Contenedores SFTP ip Flotante <<<<<< 192.168.20.23 >>>>>>>
+  ssh_emr1:
+    container_name: ALMACEN_EMR_1
+    hostname: emr1.local
+    build:
+      context: ./ssh_files
+    volumes:
+      - ./ssh_emr/key:/root/.ssh
+      - ./ssh_emr/conf/sshd_config:/etc/ssh/sshd_config
+      - ./ssh_emr/conf/lsyncd.conf.lua:/etc/lsyncd/lsyncd.conf.lua
+      - ./ssh_emr/storage_a:/home/remote_user/almacen
+      - ./ssh_emr/conf/keepalived_server_a.conf:/etc/keepalived/keepalived.conf
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+    sysctls:
+      - net.ipv4.ip_nonlocal_bind=1
+    networks:
+      infra_lab:
+        ipv4_address: 192.168.20.21
+
+  ssh_emr2:
+    container_name: ALMACEN_EMR_2
+    hostname: emr2.local
+    build:
+      context: ./ssh_files
+    volumes:
+      - ./ssh_emr/conf/sshd_config:/etc/ssh/sshd_config
+      - ./ssh_emr/storage_b:/home/remote_user/almacen
+      - ./ssh_emr/key/authorized_keys:/root/.ssh/authorized_keys
+      - ./ssh_emr/conf/keepalived_server_b.conf:/etc/keepalived/keepalived.conf
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+    sysctls:
+      - net.ipv4.ip_nonlocal_bind=1
+    networks:
+      infra_lab:
+        ipv4_address: 192.168.20.22
 # Contenedor Jenkins 
   jenkins:
     container_name: JENKINS

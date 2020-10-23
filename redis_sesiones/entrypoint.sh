@@ -4,7 +4,6 @@ set -e
 
 ipflotante=`ps aux | grep -c keepalived`
 remoto=`ps aux | grep -c ssh`
-logs=`ps aux | grep -c rsyslog`
 
 if [[ "$ipflotante" -eq 1 ]]
 then

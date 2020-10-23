@@ -13,4 +13,4 @@ RUN useradd remote_user \
 COPY ./ssl /etc/ssl
 COPY ./entrypoint.sh /entrypoint.sh
 ENTRYPOINT [ "/entrypoint.sh" ]
-CMD tail -f entrypoint.sh
+CMD /usr/sbin/sshd -D -e
