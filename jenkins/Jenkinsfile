@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+    stages {
+        stage('Info SSH_Files') {
+            steps {
+                sh 'ssh -i ssh root@192.168.20.19 du /home/remote_user/almacen -sh && df -h'
+            }
+        }
+        stage('Info SSH_EMR') {
+            steps {
+                sh 'ssh -i ssh root@192.168.20.23 du /home/remote_user/almacen -sh && df -h'
+            }
+        }
+        stage('Info de Redis') {
+            steps {
+                sh 'ssh -i redis root@192.168.20.9 redis-cli info'
+            }
+        }
+        stage('Info PHP') {
+            steps {
+                sh 'ssh -i php root@192.168.20.4 php-fpm -i'
+            }
+        }
+    }
+}

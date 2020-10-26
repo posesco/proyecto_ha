@@ -28,14 +28,7 @@ RUN curl -L -o redis.tar.gz https://github.com/phpredis/phpredis/archive/5.3.1.t
     && docker-php-ext-enable redis \
     && docker-php-ext-enable ssh2 \
     && docker-php-ext-enable mongodb
-# Rutina que activa procesos para ip flotante
-# Creacion de usuario para monitoreo
-RUN useradd remote_user \
-    && echo "remote_user:kv5OmlgW7@J4" | chpasswd \
-    && mkdir -p /home/remote_user/.ssh \
-    && chmod -R 700 /home/remote_user \
-    && chown -Rf remote_user:remote_user /home/remote_user \
-    && service ssh start
+RUN service ssh start
 COPY ./entrypoint.sh /entrypoint.sh
 ENTRYPOINT [ "/entrypoint.sh" ]
 CMD ["php-fpm"]
