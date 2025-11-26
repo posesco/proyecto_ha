@@ -1,5 +1,4 @@
 # Entorno LEMP Basico 
-version: '3.8'
 services:
    # Contenedor de aplicacion php (Solo interpreta el lenguaje)
    # Ip flotante 192.168.20.4
